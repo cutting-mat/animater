@@ -1,0 +1,32 @@
+{
+  "name": "@cutting-mat/vue-animate-layout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.common.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cutting-mat/vue-animate-layout.git"
+  },
+  "author": "tower1229@foxmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cutting-mat/vue-animate-layout/issues"
+  },
+  "homepage": "https://github.com/cutting-mat/vue-animate-layout#readme",
+  "private": false,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --dest dist --name index ./src/index.js"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@cutting-mat/axios": "^1.0.2",
+    "@vue/cli-service": "^4.5.6",
+    "element-ui": "^2.15.6",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
