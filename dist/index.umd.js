@@ -609,12 +609,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=0a5991f6&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isShow),expression:"isShow"}]},[_vm._t("default")],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=7805685a&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=0a5991f6&
+// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=7805685a&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=script&lang=js&
 //
@@ -624,30 +624,35 @@ var staticRenderFns = []
 //
 //
 
-
 /* harmony default export */ var animateGroupvue_type_script_lang_js_ = ({
   name: "AnimateGroup",
   props: {
     name: {
       type: String,
-      required: false
+      required: false,
     },
     animateDelay: {
       type: Number,
       required: false,
-      default: .3
+      default: 0.3,
     },
     groupDelay: {
       type: Number,
       required: false,
-      default: .8
+      default: 0.8,
     },
   },
 
   data() {
     return {
-      isShow: false,
+      visibility: false,
+      enterQueue: null,
     };
+  },
+  computed: {
+    animatePlugin() {
+      return this.$animatePlugin;
+    },
   },
   watch: {
     "$animatePlugin.orderGroupName": {
@@ -663,28 +668,44 @@ var staticRenderFns = []
   },
   methods: {
     showAnimateBox() {
-      this.isShow = true;
-
-      setTimeout(
+      this.visibility = true;
+      if (this.enterQueue) {
+        // 丢弃未开始的进场动画
+        window.clearTimeout(this.enterQueue);
+        this.enterQueue = null;
+      }
+      this.enterQueue = setTimeout(
         () => {
-          this.$children.forEach((e, i) => {
-            setTimeout(() => {
-              e.show();
-            }, this.animateDelay * i * 1000);
-          });
+          console.log("开始进场", this.name);
+          this.enterQueue = null;
           this.$animatePlugin.currentGroupName = this.name;
+
+          Promise.all(
+            this.$children.map((c, i) => c.enter(this.animateDelay * i * 1000))
+          ).then((values) => {
+            console.log("进场完成", this.name);
+          });
         },
         this.$animatePlugin.currentGroupName ? this.groupDelay * 1000 : 0
       );
     },
     hideAnimateBox() {
-      this.$nextTick(() => {
+      if (this.enterQueue) {
+        // 丢弃未开始的进场动画
+        window.clearTimeout(this.enterQueue);
+        this.enterQueue = null;
+      }
+      this.enterQueue = setTimeout(() => {
+        console.log("开始退场", this.name);
         Promise.all(
-          this.$children.map((c, i) => c.hide(this.animateDelay * i * 1000))
+          this.$children.map((c, i) => c.leave(this.animateDelay * i * 1000))
         ).then((values) => {
-          this.isShow = false;
+          console.log("退场完成", this.name);
+          if (this.$animatePlugin.orderGroupName !== this.name) {
+            this.visibility = false;
+          }
         });
-      });
+      }, 0);
     },
   },
 });
@@ -811,15 +832,15 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var animateGroup = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=5f330416&
-var animatevue_type_template_id_5f330416_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.currentAnimateName,style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=746da916&
+var animatevue_type_template_id_746da916_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.currentAnimateName,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
   })},[_vm._t("default")],2)}
-var animatevue_type_template_id_5f330416_staticRenderFns = []
+var animatevue_type_template_id_746da916_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=5f330416&
+// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=746da916&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=script&lang=js&
 //
@@ -834,6 +855,7 @@ var animatevue_type_template_id_5f330416_staticRenderFns = []
 //
 //
 //
+
 
 /* harmony default export */ var animatevue_type_script_lang_js_ = ({
   name: "AnimateBox",
@@ -863,20 +885,27 @@ var animatevue_type_template_id_5f330416_staticRenderFns = []
   },
 
   methods: {
-    show(delay) {
+    enter(delay) {
       this.offstage = false;
-      setTimeout(() => {
-        this.visibility = true;
-        this.currentAnimateName = "animate__animated " + this.enterClass;
-      }, delay || 0);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          this.visibility = true;
+          this.currentAnimateName = "animate__animated " + this.enterClass;
+          setTimeout(() => {
+            this.currentAnimateName = "";
+            resolve(true)
+          }, this.duration * 1000)
+        }, delay || 0);
+      })
     },
-    hide(delay) {
+    leave(delay) {
       this.offstage = true;
       return new Promise(resolve => {
           setTimeout(() => {
               this.currentAnimateName = "animate__animated " + this.leaveClass;
               setTimeout(() => {
                   this.visibility = false;
+                  this.currentAnimateName = "";
                   resolve(true)
               }, this.duration * 1000)
               
@@ -898,8 +927,8 @@ var animatevue_type_template_id_5f330416_staticRenderFns = []
 
 var animate_component = normalizeComponent(
   components_animatevue_type_script_lang_js_,
-  animatevue_type_template_id_5f330416_render,
-  animatevue_type_template_id_5f330416_staticRenderFns,
+  animatevue_type_template_id_746da916_render,
+  animatevue_type_template_id_746da916_staticRenderFns,
   false,
   null,
   null,
