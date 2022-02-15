@@ -1,5 +1,5 @@
 <template>
-  <div v-if="keepDom || visibility"
+  <div v-show="keepDomLayout || visibility"
     :class="currentAnimateName"
     :style="{
       'animation-duration': duration + 's',
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-// TODO 组件开启 keepDom 模式 
+// TODO 组件开启 keepDomLayout 模式 
 
 export default {
   name: "AnimateBox",
@@ -40,7 +40,7 @@ export default {
     };
   },
   computed: {
-    keepDom(){
+    keepDomLayout(){
       return this.$parent && (this.$parent.$options.name === 'AnimateGroup')
     }
   },

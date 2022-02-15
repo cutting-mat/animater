@@ -600,12 +600,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=10e46977&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=4c36efc0&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=10e46977&
+// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=4c36efc0&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=script&lang=js&
 //
@@ -702,6 +702,9 @@ var staticRenderFns = []
       }, 0);
     },
   },
+  created(){
+    this.$groupInit()
+  }
 });
 
 // CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=script&lang=js&
@@ -826,15 +829,15 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var animateGroup = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=aa5c93da&
-var animatevue_type_template_id_aa5c93da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.keepDom || _vm.visibility)?_c('div',{class:_vm.currentAnimateName,style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=5a17c269&
+var animatevue_type_template_id_5a17c269_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.keepDomLayout || _vm.visibility),expression:"keepDomLayout || visibility"}],class:_vm.currentAnimateName,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
-  })},[_vm._t("default")],2):_vm._e()}
-var animatevue_type_template_id_aa5c93da_staticRenderFns = []
+  })},[_vm._t("default")],2)}
+var animatevue_type_template_id_5a17c269_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=aa5c93da&
+// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=5a17c269&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=script&lang=js&
 //
@@ -850,7 +853,7 @@ var animatevue_type_template_id_aa5c93da_staticRenderFns = []
 //
 //
 
-// TODO 组件开启 keepDom 模式 
+// TODO 组件开启 keepDomLayout 模式 
 
 /* harmony default export */ var animatevue_type_script_lang_js_ = ({
   name: "AnimateBox",
@@ -879,7 +882,7 @@ var animatevue_type_template_id_aa5c93da_staticRenderFns = []
     };
   },
   computed: {
-    keepDom(){
+    keepDomLayout(){
       return this.$parent && (this.$parent.$options.name === 'AnimateGroup')
     }
   },
@@ -930,8 +933,8 @@ var animatevue_type_template_id_aa5c93da_staticRenderFns = []
 
 var animate_component = normalizeComponent(
   components_animatevue_type_script_lang_js_,
-  animatevue_type_template_id_aa5c93da_render,
-  animatevue_type_template_id_aa5c93da_staticRenderFns,
+  animatevue_type_template_id_5a17c269_render,
+  animatevue_type_template_id_5a17c269_staticRenderFns,
   false,
   null,
   null,
@@ -955,8 +958,15 @@ var animate_css_animate = __webpack_require__("77ed");
             orderGroupName: ''
         })
     
+        Vue.prototype.$groupInit = function(){
+            Vue.prototype.$animatePlugin.currentGroupName = '';
+            Vue.prototype.$animatePlugin.orderGroupName = '';
+        }
+
         Vue.prototype.$changeGroup = function (groupName) {
-            Vue.prototype.$animatePlugin.orderGroupName = groupName
+            Vue.nextTick(() => {
+                Vue.prototype.$animatePlugin.orderGroupName = groupName
+            })
         }
     
         Vue.component(animateGroup.name, animateGroup)

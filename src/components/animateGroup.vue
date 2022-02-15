@@ -92,6 +92,9 @@ export default {
       }, 0);
     },
   },
+  created(){
+    this.$groupInit()
+  }
 };
 </script>
 

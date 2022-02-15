@@ -9,8 +9,15 @@ export default {
             orderGroupName: ''
         })
     
+        Vue.prototype.$groupInit = function(){
+            Vue.prototype.$animatePlugin.currentGroupName = '';
+            Vue.prototype.$animatePlugin.orderGroupName = '';
+        }
+
         Vue.prototype.$changeGroup = function (groupName) {
-            Vue.prototype.$animatePlugin.orderGroupName = groupName
+            Vue.nextTick(() => {
+                Vue.prototype.$animatePlugin.orderGroupName = groupName
+            })
         }
     
         Vue.component(containerComponent.name, containerComponent)
