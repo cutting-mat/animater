@@ -7,7 +7,7 @@
         leaveClass="animate__zoomOut"
         @enterEnd="handleEnterEnd('animate-box left1')"
       >
-        <span @click="open">1-1</span>
+        <span>1-1</span>
       </animate-box>
       <animate-box
         class="animate-box left1"
@@ -48,14 +48,7 @@
       </animate-box>
     </animate-group>
 
-    <animate-box
-      class="zoom-box"
-      ref="zoom"
-      enterClass="animate__zoomIn"
-      leaveClass="animate__zoomOut"
-    >
-      window
-    </animate-box>
+    
     <animate-group name="group1" class="right">
       <animate-box
         class="animate-box left1"
@@ -103,6 +96,16 @@
       </animate-box>
     </animate-group>
 
+    <!-- dialog -->
+    <animate-box
+      class="zoom-box"
+      ref="zoom"
+      enterClass="animate__zoomIn"
+      leaveClass="animate__zoomOut"
+    >
+      window
+    </animate-box>
+
     <!-- control -->
     <div class="center">
       <button
@@ -115,7 +118,8 @@
         {{ item }}
       </button>
 
-      <span @click="open">window</span>
+      <span @click="$refs.zoom && $refs.zoom.enter()">open </span>
+      <span @click="$refs.zoom && $refs.zoom.leave()">close </span>
     </div>
 
   </div>
@@ -136,12 +140,6 @@ export default {
     tab(v) {
       this.curr = v;
       this.$changeGroup(`group${v}`);
-    },
-    open() {
-      this.$refs.zoom.enter();
-      setTimeout(() => {
-        this.$refs.zoom.leave();
-      }, 3000);
     },
     handleEnterEnd(cname){
       console.log('animateBox进场完成', cname)

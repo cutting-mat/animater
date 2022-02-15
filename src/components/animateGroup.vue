@@ -48,13 +48,16 @@ export default {
     },
   },
   methods: {
-    showAnimateBox() {
-      this.visibility = true;
+    clearAnimateTimerHandle(){
       if (this.animateTimerHandle) {
-        // 丢弃未开始的进场动画
         window.clearTimeout(this.animateTimerHandle);
         this.animateTimerHandle = null;
       }
+    },
+    showAnimateBox() {
+      this.visibility = true;
+      this.clearAnimateTimerHandle()
+
       this.animateTimerHandle = setTimeout(
         () => {
           // console.log("开始进场", this.name);
@@ -72,11 +75,8 @@ export default {
       );
     },
     hideAnimateBox() {
-      if (this.animateTimerHandle) {
-        // 丢弃未开始的进场动画
-        window.clearTimeout(this.animateTimerHandle);
-        this.animateTimerHandle = null;
-      }
+      this.clearAnimateTimerHandle()
+
       this.animateTimerHandle = setTimeout(() => {
         // console.log("开始退场", this.name);
         this.$emit('groupLeaveStart')

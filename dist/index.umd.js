@@ -609,12 +609,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=4c36efc0&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=d344415e&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=4c36efc0&
+// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=d344415e&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=script&lang=js&
 //
@@ -667,13 +667,16 @@ var staticRenderFns = []
     },
   },
   methods: {
-    showAnimateBox() {
-      this.visibility = true;
+    clearAnimateTimerHandle(){
       if (this.animateTimerHandle) {
-        // 丢弃未开始的进场动画
         window.clearTimeout(this.animateTimerHandle);
         this.animateTimerHandle = null;
       }
+    },
+    showAnimateBox() {
+      this.visibility = true;
+      this.clearAnimateTimerHandle()
+
       this.animateTimerHandle = setTimeout(
         () => {
           // console.log("开始进场", this.name);
@@ -691,11 +694,8 @@ var staticRenderFns = []
       );
     },
     hideAnimateBox() {
-      if (this.animateTimerHandle) {
-        // 丢弃未开始的进场动画
-        window.clearTimeout(this.animateTimerHandle);
-        this.animateTimerHandle = null;
-      }
+      this.clearAnimateTimerHandle()
+
       this.animateTimerHandle = setTimeout(() => {
         // console.log("开始退场", this.name);
         this.$emit('groupLeaveStart')
@@ -838,15 +838,15 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var animateGroup = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=5a17c269&
-var animatevue_type_template_id_5a17c269_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.keepDomLayout || _vm.visibility),expression:"keepDomLayout || visibility"}],class:_vm.currentAnimateName,style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=9619b4a2&
+var animatevue_type_template_id_9619b4a2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.keepDomLayout || _vm.visibility),expression:"keepDomLayout || visibility"}],class:_vm.currentAnimateName,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
   })},[_vm._t("default")],2)}
-var animatevue_type_template_id_5a17c269_staticRenderFns = []
+var animatevue_type_template_id_9619b4a2_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=5a17c269&
+// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=9619b4a2&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=script&lang=js&
 //
@@ -861,8 +861,7 @@ var animatevue_type_template_id_5a17c269_staticRenderFns = []
 //
 //
 //
-
-// TODO 组件开启 keepDomLayout 模式 
+//
 
 /* harmony default export */ var animatevue_type_script_lang_js_ = ({
   name: "AnimateBox",
@@ -870,17 +869,17 @@ var animatevue_type_template_id_5a17c269_staticRenderFns = []
     enterClass: {
       type: String,
       required: false,
-      default: 'animate__fadeInLeft'
+      default: "animate__fadeInLeft",
     },
     leaveClass: {
       type: String,
       required: false,
-      default: 'animate__fadeOutLeft'
+      default: "animate__fadeOutLeft",
     },
     duration: {
       type: Number,
       required: false,
-      default: 0.5
+      default: 0.5,
     },
   },
   data() {
@@ -888,44 +887,68 @@ var animatevue_type_template_id_5a17c269_staticRenderFns = []
       offstage: false,
       currentAnimateName: "",
       visibility: false,
+      animateTimerHandle: null,
     };
   },
   computed: {
-    keepDomLayout(){
-      return this.$parent && (this.$parent.$options.name === 'AnimateGroup')
-    }
+    keepDomLayout() {
+      return this.$parent && this.$parent.$options.name === "AnimateGroup";
+    },
   },
   methods: {
+    clearAnimateTimerHandle() {
+      if (this.animateTimerHandle) {
+        window.clearTimeout(this.animateTimerHandle);
+        this.animateTimerHandle = null;
+      }
+    },
     enter(delay) {
       this.offstage = false;
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
+          if (this.animateTimerHandle) {
+            // 动画正在进行
+            return null;
+          }
+          if (this.visibility) {
+            // 已展示状态
+            return null;
+          }
           this.visibility = true;
           this.currentAnimateName = "animate__animated " + this.enterClass;
-          this.$emit('enterStart')
-          setTimeout(() => {
+          this.$emit("enterStart");
+          this.animateTimerHandle = setTimeout(() => {
             this.currentAnimateName = "";
-            this.$emit('enterEnd')
-            resolve(true)
-          }, this.duration * 1000)
+            this.clearAnimateTimerHandle();
+            this.$emit("enterEnd");
+            resolve(true);
+          }, this.duration * 1000);
         }, delay || 0);
-      })
+      });
     },
     leave(delay) {
       this.offstage = true;
-      return new Promise(resolve => {
-          setTimeout(() => {
-              this.currentAnimateName = "animate__animated " + this.leaveClass;
-              this.$emit('leaveStart')
-              setTimeout(() => {
-                  this.visibility = false;
-                  this.currentAnimateName = "";
-                  this.$emit('leaveEnd')
-                  resolve(true)
-              }, this.duration * 1000)
-              
-          }, delay || 0)
-      })
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          if (this.animateTimerHandle) {
+            // 动画正在进行
+            return null;
+          }
+          if (!this.visibility) {
+            // 已展示状态
+            return null;
+          }
+          this.currentAnimateName = "animate__animated " + this.leaveClass;
+          this.$emit("leaveStart");
+          this.animateTimerHandle = setTimeout(() => {
+            this.visibility = false;
+            this.currentAnimateName = "";
+            this.clearAnimateTimerHandle();
+            this.$emit("leaveEnd");
+            resolve(true);
+          }, this.duration * 1000);
+        }, delay || 0);
+      });
     },
   },
 });
@@ -942,8 +965,8 @@ var animatevue_type_template_id_5a17c269_staticRenderFns = []
 
 var animate_component = normalizeComponent(
   components_animatevue_type_script_lang_js_,
-  animatevue_type_template_id_5a17c269_render,
-  animatevue_type_template_id_5a17c269_staticRenderFns,
+  animatevue_type_template_id_9619b4a2_render,
+  animatevue_type_template_id_9619b4a2_staticRenderFns,
   false,
   null,
   null,
