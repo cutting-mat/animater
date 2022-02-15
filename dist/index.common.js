@@ -600,12 +600,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=d344415e&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=9a551604&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=d344415e&
+// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=9a551604&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=script&lang=js&
 //
@@ -616,7 +616,7 @@ var staticRenderFns = []
 //
 
 /* harmony default export */ var animateGroupvue_type_script_lang_js_ = ({
-  name: "AnimateGroup",
+  name: `AnimateGroup`,
   props: {
     name: {
       type: String,
@@ -638,6 +638,7 @@ var staticRenderFns = []
     return {
       visibility: false,
       animateTimerHandle: null,
+      index: 0
     };
   },
   computed: {
@@ -670,16 +671,16 @@ var staticRenderFns = []
 
       this.animateTimerHandle = setTimeout(
         () => {
-          // console.log("开始进场", this.name);
           this.animateTimerHandle = null;
           this.$animatePlugin.currentGroupName = this.name;
           this.$emit('groupEnterStart')
           Promise.all(
             this.$children.map((c, i) => c.enter(this.animateDelay * i * 1000))
           ).then((values) => {
-            // console.log("进场完成", this.name);
             this.$emit('groupEnterEnd')
-          });
+          }).catch(err => {
+            console.warn(err)
+          })
         },
         this.$animatePlugin.currentGroupName ? this.groupDelay * 1000 : 0
       );
@@ -698,12 +699,17 @@ var staticRenderFns = []
             this.visibility = false;
           }
           this.$emit('groupLeaveEnd')
-        });
+        }).catch(err => {
+          console.warn(err)
+        })
       }, 0);
     },
   },
-  created(){
-    this.$groupInit()
+  mounted(){
+    this.index = this.$groupCreated(this.name)
+  },
+  destroyed(){
+    this.$groupDestroyed(this.name, this.index)
   }
 });
 
@@ -829,15 +835,15 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var animateGroup = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=9619b4a2&
-var animatevue_type_template_id_9619b4a2_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.keepDomLayout || _vm.visibility),expression:"keepDomLayout || visibility"}],class:_vm.currentAnimateName,style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=400f4dc8&
+var animatevue_type_template_id_400f4dc8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.keepDomLayout || _vm.visibility),expression:"keepDomLayout || visibility"}],class:_vm.animateClass,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
   })},[_vm._t("default")],2)}
-var animatevue_type_template_id_9619b4a2_staticRenderFns = []
+var animatevue_type_template_id_400f4dc8_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=9619b4a2&
+// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=400f4dc8&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=script&lang=js&
 //
@@ -856,7 +862,16 @@ var animatevue_type_template_id_9619b4a2_staticRenderFns = []
 
 /* harmony default export */ var animatevue_type_script_lang_js_ = ({
   name: "AnimateBox",
+  model: {
+    prop: "value",
+    event: "change",
+  },
   props: {
+    value: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     enterClass: {
       type: String,
       required: false,
@@ -875,10 +890,10 @@ var animatevue_type_template_id_9619b4a2_staticRenderFns = []
   },
   data() {
     return {
-      offstage: false,
-      currentAnimateName: "",
+      animateClass: "",
+      enterTimerHandle: null,
+      leaveTimerHandle: null,
       visibility: false,
-      animateTimerHandle: null,
     };
   },
   computed: {
@@ -886,57 +901,82 @@ var animatevue_type_template_id_9619b4a2_staticRenderFns = []
       return this.$parent && this.$parent.$options.name === "AnimateGroup";
     },
   },
+  watch: {
+    value: {
+      handler() {
+        if (this.value) {
+          this.enter();
+        } else {
+          this.leave();
+        }
+      },
+      immediate: true,
+    },
+    visibility: {
+      handler() {
+        this.$emit("change", this.visibility);
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    clearAnimateTimerHandle() {
-      if (this.animateTimerHandle) {
-        window.clearTimeout(this.animateTimerHandle);
-        this.animateTimerHandle = null;
+    clearTimerHandle(handle) {
+      if (handle) {
+        window.clearTimeout(handle);
+        handle = null;
       }
     },
     enter(delay) {
-      this.offstage = false;
       return new Promise((resolve) => {
-        setTimeout(() => {
-          if (this.animateTimerHandle) {
-            // 动画正在进行
-            return null;
-          }
+        if(this.leaveTimerHandle){
+          // 如果正在退场，立即终止
+          this.clearTimerHandle(this.leaveTimerHandle);
+          this.animateClass = "";
+        }
+
+        this.enterTimerHandle = setTimeout(() => {
           if (this.visibility) {
-            // 已展示状态
-            return null;
+            return resolve('already enter');
           }
+          
           this.visibility = true;
-          this.currentAnimateName = "animate__animated " + this.enterClass;
+          // 执行动画
+          this.animateClass = "animate__animated " + this.enterClass;
           this.$emit("enterStart");
-          this.animateTimerHandle = setTimeout(() => {
-            this.currentAnimateName = "";
-            this.clearAnimateTimerHandle();
+
+          this.enterTimerHandle = setTimeout(() => {
+            // 动画结束
+            this.animateClass = "";
+            this.clearTimerHandle(this.enterTimerHandle);
             this.$emit("enterEnd");
-            resolve(true);
+            resolve('done enter');
           }, this.duration * 1000);
         }, delay || 0);
       });
     },
     leave(delay) {
-      this.offstage = true;
       return new Promise((resolve) => {
-        setTimeout(() => {
-          if (this.animateTimerHandle) {
-            // 动画正在进行
-            return null;
-          }
+        if(this.enterTimerHandle){
+          // 如果正在进场，立即终止
+          this.clearTimerHandle(this.enterTimerHandle);
+          this.animateClass = "";
+        }
+
+        this.leaveTimerHandle = setTimeout(() => {
           if (!this.visibility) {
-            // 已展示状态
-            return null;
+            return resolve('already leave');
           }
-          this.currentAnimateName = "animate__animated " + this.leaveClass;
+
+          this.animateClass = "animate__animated " + this.leaveClass;
           this.$emit("leaveStart");
-          this.animateTimerHandle = setTimeout(() => {
+
+          this.leaveTimerHandle = setTimeout(() => {
             this.visibility = false;
-            this.currentAnimateName = "";
-            this.clearAnimateTimerHandle();
+
+            this.animateClass = "";
+            this.clearTimerHandle(this.leaveTimerHandle);
             this.$emit("leaveEnd");
-            resolve(true);
+            resolve('done leave');
           }, this.duration * 1000);
         }, delay || 0);
       });
@@ -956,8 +996,8 @@ var animatevue_type_template_id_9619b4a2_staticRenderFns = []
 
 var animate_component = normalizeComponent(
   components_animatevue_type_script_lang_js_,
-  animatevue_type_template_id_9619b4a2_render,
-  animatevue_type_template_id_9619b4a2_staticRenderFns,
+  animatevue_type_template_id_400f4dc8_render,
+  animatevue_type_template_id_400f4dc8_staticRenderFns,
   false,
   null,
   null,
@@ -976,22 +1016,52 @@ var animate_css_animate = __webpack_require__("77ed");
 
 /* harmony default export */ var src_0 = ({
     install: function (Vue) {
-        Vue.prototype.$animatePlugin = Vue.observable({
-            currentGroupName: '',
-            orderGroupName: ''
+        let PluginData = Vue.observable({
+            currentGroupName: undefined,
+            orderGroupName: undefined,
+            groups: new Map()
         })
-    
-        Vue.prototype.$groupInit = function(){
-            Vue.prototype.$animatePlugin.currentGroupName = '';
-            Vue.prototype.$animatePlugin.orderGroupName = '';
+
+        Vue.prototype.$animatePlugin = PluginData;
+
+        Vue.prototype.$groupCreated = function (groupName = 'anonymous') {
+            // 组注册
+            if (!PluginData.groups.size) {
+                PluginData.currentGroupName = undefined
+                PluginData.orderGroupName = undefined
+            }
+            if(!PluginData.groups.has(groupName)){
+                PluginData.groups.set(groupName, new Set())
+            }
+            const index = PluginData.groups.get(groupName).size + 1;
+            PluginData.groups.get(groupName).add(index)
+
+            return index
+        }
+
+        Vue.prototype.$groupDestroyed = function(groupName = 'anonymous', index){
+            // 组注销
+            if(PluginData.groups.has(groupName)){
+                PluginData.groups.get(groupName).delete(index)
+
+                if(!PluginData.groups.get(groupName).size){
+                    PluginData.groups.delete(groupName)
+                }
+                // console.log('delete', groupName, PluginData.groups.keys())
+            }
         }
 
         Vue.prototype.$changeGroup = function (groupName) {
             Vue.nextTick(() => {
-                Vue.prototype.$animatePlugin.orderGroupName = groupName
+                if(PluginData.groups.has(groupName)){
+                    PluginData.orderGroupName = groupName
+                }else{
+                    console.warn('groupName 未注册', groupName)
+                }
+                
             })
         }
-    
+
         Vue.component(animateGroup.name, animateGroup)
         Vue.component(animate.name, animate)
     }

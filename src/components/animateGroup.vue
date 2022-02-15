@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "AnimateGroup",
+  name: `AnimateGroup`,
   props: {
     name: {
       type: String,
@@ -28,6 +28,7 @@ export default {
     return {
       visibility: false,
       animateTimerHandle: null,
+      index: 0
     };
   },
   computed: {
@@ -60,16 +61,16 @@ export default {
 
       this.animateTimerHandle = setTimeout(
         () => {
-          // console.log("开始进场", this.name);
           this.animateTimerHandle = null;
           this.$animatePlugin.currentGroupName = this.name;
           this.$emit('groupEnterStart')
           Promise.all(
             this.$children.map((c, i) => c.enter(this.animateDelay * i * 1000))
           ).then((values) => {
-            // console.log("进场完成", this.name);
             this.$emit('groupEnterEnd')
-          });
+          }).catch(err => {
+            console.warn(err)
+          })
         },
         this.$animatePlugin.currentGroupName ? this.groupDelay * 1000 : 0
       );
@@ -88,12 +89,17 @@ export default {
             this.visibility = false;
           }
           this.$emit('groupLeaveEnd')
-        });
+        }).catch(err => {
+          console.warn(err)
+        })
       }, 0);
     },
   },
-  created(){
-    this.$groupInit()
+  mounted(){
+    this.index = this.$groupCreated(this.name)
+  },
+  destroyed(){
+    this.$groupDestroyed(this.name, this.index)
   }
 };
 </script>

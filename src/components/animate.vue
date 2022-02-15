@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="keepDomLayout || visibility"
-    :class="currentAnimateName"
+    :class="animateClass"
     :style="{
       'animation-duration': duration + 's',
       visibility: visibility ? 'visible' : 'hidden',
@@ -14,7 +14,16 @@
 <script>
 export default {
   name: "AnimateBox",
+  model: {
+    prop: "value",
+    event: "change",
+  },
   props: {
+    value: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     enterClass: {
       type: String,
       required: false,
@@ -33,10 +42,10 @@ export default {
   },
   data() {
     return {
-      offstage: false,
-      currentAnimateName: "",
+      animateClass: "",
+      enterTimerHandle: null,
+      leaveTimerHandle: null,
       visibility: false,
-      animateTimerHandle: null,
     };
   },
   computed: {
@@ -44,57 +53,82 @@ export default {
       return this.$parent && this.$parent.$options.name === "AnimateGroup";
     },
   },
+  watch: {
+    value: {
+      handler() {
+        if (this.value) {
+          this.enter();
+        } else {
+          this.leave();
+        }
+      },
+      immediate: true,
+    },
+    visibility: {
+      handler() {
+        this.$emit("change", this.visibility);
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    clearAnimateTimerHandle() {
-      if (this.animateTimerHandle) {
-        window.clearTimeout(this.animateTimerHandle);
-        this.animateTimerHandle = null;
+    clearTimerHandle(handle) {
+      if (handle) {
+        window.clearTimeout(handle);
+        handle = null;
       }
     },
     enter(delay) {
-      this.offstage = false;
       return new Promise((resolve) => {
-        setTimeout(() => {
-          if (this.animateTimerHandle) {
-            // 动画正在进行
-            return null;
-          }
+        if(this.leaveTimerHandle){
+          // 如果正在退场，立即终止
+          this.clearTimerHandle(this.leaveTimerHandle);
+          this.animateClass = "";
+        }
+
+        this.enterTimerHandle = setTimeout(() => {
           if (this.visibility) {
-            // 已展示状态
-            return null;
+            return resolve('already enter');
           }
+          
           this.visibility = true;
-          this.currentAnimateName = "animate__animated " + this.enterClass;
+          // 执行动画
+          this.animateClass = "animate__animated " + this.enterClass;
           this.$emit("enterStart");
-          this.animateTimerHandle = setTimeout(() => {
-            this.currentAnimateName = "";
-            this.clearAnimateTimerHandle();
+
+          this.enterTimerHandle = setTimeout(() => {
+            // 动画结束
+            this.animateClass = "";
+            this.clearTimerHandle(this.enterTimerHandle);
             this.$emit("enterEnd");
-            resolve(true);
+            resolve('done enter');
           }, this.duration * 1000);
         }, delay || 0);
       });
     },
     leave(delay) {
-      this.offstage = true;
       return new Promise((resolve) => {
-        setTimeout(() => {
-          if (this.animateTimerHandle) {
-            // 动画正在进行
-            return null;
-          }
+        if(this.enterTimerHandle){
+          // 如果正在进场，立即终止
+          this.clearTimerHandle(this.enterTimerHandle);
+          this.animateClass = "";
+        }
+
+        this.leaveTimerHandle = setTimeout(() => {
           if (!this.visibility) {
-            // 已展示状态
-            return null;
+            return resolve('already leave');
           }
-          this.currentAnimateName = "animate__animated " + this.leaveClass;
+
+          this.animateClass = "animate__animated " + this.leaveClass;
           this.$emit("leaveStart");
-          this.animateTimerHandle = setTimeout(() => {
+
+          this.leaveTimerHandle = setTimeout(() => {
             this.visibility = false;
-            this.currentAnimateName = "";
-            this.clearAnimateTimerHandle();
+
+            this.animateClass = "";
+            this.clearTimerHandle(this.leaveTimerHandle);
             this.$emit("leaveEnd");
-            resolve(true);
+            resolve('done leave');
           }, this.duration * 1000);
         }, delay || 0);
       });
