@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <animate-group name="group1" class="left">
+    <animate-group name="group1" class="left" @groupEnterEnd="handleGroupEnterEnd('group1')">
       <animate-box
         class="animate-box left1"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
+        @enterEnd="handleEnterEnd('animate-box left1')"
       >
         <span @click="open">1-1</span>
       </animate-box>
@@ -142,6 +143,12 @@ export default {
         this.$refs.zoom.leave();
       }, 3000);
     },
+    handleEnterEnd(cname){
+      console.log('animateBox进场完成', cname)
+    },
+    handleGroupEnterEnd(gname){
+      console.log('group进场完成', gname)
+    }
   },
 
   created() {

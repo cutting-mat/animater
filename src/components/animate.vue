@@ -1,5 +1,5 @@
 <template>
-  <div
+  <div v-if="keepDom || visibility"
     :class="currentAnimateName"
     :style="{
       'animation-duration': duration + 's',
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+// TODO 组件开启 keepDom 模式 
 
 export default {
   name: "AnimateBox",
@@ -38,7 +39,11 @@ export default {
       visibility: false,
     };
   },
-
+  computed: {
+    keepDom(){
+      return this.$parent && (this.$parent.$options.name === 'AnimateGroup')
+    }
+  },
   methods: {
     enter(delay) {
       this.offstage = false;
@@ -46,8 +51,10 @@ export default {
         setTimeout(() => {
           this.visibility = true;
           this.currentAnimateName = "animate__animated " + this.enterClass;
+          this.$emit('enterStart')
           setTimeout(() => {
             this.currentAnimateName = "";
+            this.$emit('enterEnd')
             resolve(true)
           }, this.duration * 1000)
         }, delay || 0);
@@ -58,9 +65,11 @@ export default {
       return new Promise(resolve => {
           setTimeout(() => {
               this.currentAnimateName = "animate__animated " + this.leaveClass;
+              this.$emit('leaveStart')
               setTimeout(() => {
                   this.visibility = false;
                   this.currentAnimateName = "";
+                  this.$emit('leaveEnd')
                   resolve(true)
               }, this.duration * 1000)
               

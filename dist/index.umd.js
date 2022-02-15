@@ -609,12 +609,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=7805685a&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=template&id=10e46977&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=7805685a&
+// CONCATENATED MODULE: ./src/components/animateGroup.vue?vue&type=template&id=10e46977&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animateGroup.vue?vue&type=script&lang=js&
 //
@@ -646,7 +646,7 @@ var staticRenderFns = []
   data() {
     return {
       visibility: false,
-      enterQueue: null,
+      animateTimerHandle: null,
     };
   },
   computed: {
@@ -669,41 +669,44 @@ var staticRenderFns = []
   methods: {
     showAnimateBox() {
       this.visibility = true;
-      if (this.enterQueue) {
+      if (this.animateTimerHandle) {
         // 丢弃未开始的进场动画
-        window.clearTimeout(this.enterQueue);
-        this.enterQueue = null;
+        window.clearTimeout(this.animateTimerHandle);
+        this.animateTimerHandle = null;
       }
-      this.enterQueue = setTimeout(
+      this.animateTimerHandle = setTimeout(
         () => {
-          console.log("开始进场", this.name);
-          this.enterQueue = null;
+          // console.log("开始进场", this.name);
+          this.animateTimerHandle = null;
           this.$animatePlugin.currentGroupName = this.name;
-
+          this.$emit('groupEnterStart')
           Promise.all(
             this.$children.map((c, i) => c.enter(this.animateDelay * i * 1000))
           ).then((values) => {
-            console.log("进场完成", this.name);
+            // console.log("进场完成", this.name);
+            this.$emit('groupEnterEnd')
           });
         },
         this.$animatePlugin.currentGroupName ? this.groupDelay * 1000 : 0
       );
     },
     hideAnimateBox() {
-      if (this.enterQueue) {
+      if (this.animateTimerHandle) {
         // 丢弃未开始的进场动画
-        window.clearTimeout(this.enterQueue);
-        this.enterQueue = null;
+        window.clearTimeout(this.animateTimerHandle);
+        this.animateTimerHandle = null;
       }
-      this.enterQueue = setTimeout(() => {
-        console.log("开始退场", this.name);
+      this.animateTimerHandle = setTimeout(() => {
+        // console.log("开始退场", this.name);
+        this.$emit('groupLeaveStart')
         Promise.all(
           this.$children.map((c, i) => c.leave(this.animateDelay * i * 1000))
         ).then((values) => {
-          console.log("退场完成", this.name);
+          // console.log("退场完成", this.name);
           if (this.$animatePlugin.orderGroupName !== this.name) {
             this.visibility = false;
           }
+          this.$emit('groupLeaveEnd')
         });
       }, 0);
     },
@@ -832,15 +835,15 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var animateGroup = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=746da916&
-var animatevue_type_template_id_746da916_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.currentAnimateName,style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"09488d56-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=template&id=aa5c93da&
+var animatevue_type_template_id_aa5c93da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.keepDom || _vm.visibility)?_c('div',{class:_vm.currentAnimateName,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
-  })},[_vm._t("default")],2)}
-var animatevue_type_template_id_746da916_staticRenderFns = []
+  })},[_vm._t("default")],2):_vm._e()}
+var animatevue_type_template_id_aa5c93da_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=746da916&
+// CONCATENATED MODULE: ./src/components/animate.vue?vue&type=template&id=aa5c93da&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/animate.vue?vue&type=script&lang=js&
 //
@@ -856,6 +859,7 @@ var animatevue_type_template_id_746da916_staticRenderFns = []
 //
 //
 
+// TODO 组件开启 keepDom 模式 
 
 /* harmony default export */ var animatevue_type_script_lang_js_ = ({
   name: "AnimateBox",
@@ -883,7 +887,11 @@ var animatevue_type_template_id_746da916_staticRenderFns = []
       visibility: false,
     };
   },
-
+  computed: {
+    keepDom(){
+      return this.$parent && (this.$parent.$options.name === 'AnimateGroup')
+    }
+  },
   methods: {
     enter(delay) {
       this.offstage = false;
@@ -891,8 +899,10 @@ var animatevue_type_template_id_746da916_staticRenderFns = []
         setTimeout(() => {
           this.visibility = true;
           this.currentAnimateName = "animate__animated " + this.enterClass;
+          this.$emit('enterStart')
           setTimeout(() => {
             this.currentAnimateName = "";
+            this.$emit('enterEnd')
             resolve(true)
           }, this.duration * 1000)
         }, delay || 0);
@@ -903,9 +913,11 @@ var animatevue_type_template_id_746da916_staticRenderFns = []
       return new Promise(resolve => {
           setTimeout(() => {
               this.currentAnimateName = "animate__animated " + this.leaveClass;
+              this.$emit('leaveStart')
               setTimeout(() => {
                   this.visibility = false;
                   this.currentAnimateName = "";
+                  this.$emit('leaveEnd')
                   resolve(true)
               }, this.duration * 1000)
               
@@ -927,8 +939,8 @@ var animatevue_type_template_id_746da916_staticRenderFns = []
 
 var animate_component = normalizeComponent(
   components_animatevue_type_script_lang_js_,
-  animatevue_type_template_id_746da916_render,
-  animatevue_type_template_id_746da916_staticRenderFns,
+  animatevue_type_template_id_aa5c93da_render,
+  animatevue_type_template_id_aa5c93da_staticRenderFns,
   false,
   null,
   null,

@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       visibility: false,
-      enterQueue: null,
+      animateTimerHandle: null,
     };
   },
   computed: {
@@ -50,41 +50,44 @@ export default {
   methods: {
     showAnimateBox() {
       this.visibility = true;
-      if (this.enterQueue) {
+      if (this.animateTimerHandle) {
         // 丢弃未开始的进场动画
-        window.clearTimeout(this.enterQueue);
-        this.enterQueue = null;
+        window.clearTimeout(this.animateTimerHandle);
+        this.animateTimerHandle = null;
       }
-      this.enterQueue = setTimeout(
+      this.animateTimerHandle = setTimeout(
         () => {
-          console.log("开始进场", this.name);
-          this.enterQueue = null;
+          // console.log("开始进场", this.name);
+          this.animateTimerHandle = null;
           this.$animatePlugin.currentGroupName = this.name;
-
+          this.$emit('groupEnterStart')
           Promise.all(
             this.$children.map((c, i) => c.enter(this.animateDelay * i * 1000))
           ).then((values) => {
-            console.log("进场完成", this.name);
+            // console.log("进场完成", this.name);
+            this.$emit('groupEnterEnd')
           });
         },
         this.$animatePlugin.currentGroupName ? this.groupDelay * 1000 : 0
       );
     },
     hideAnimateBox() {
-      if (this.enterQueue) {
+      if (this.animateTimerHandle) {
         // 丢弃未开始的进场动画
-        window.clearTimeout(this.enterQueue);
-        this.enterQueue = null;
+        window.clearTimeout(this.animateTimerHandle);
+        this.animateTimerHandle = null;
       }
-      this.enterQueue = setTimeout(() => {
-        console.log("开始退场", this.name);
+      this.animateTimerHandle = setTimeout(() => {
+        // console.log("开始退场", this.name);
+        this.$emit('groupLeaveStart')
         Promise.all(
           this.$children.map((c, i) => c.leave(this.animateDelay * i * 1000))
         ).then((values) => {
-          console.log("退场完成", this.name);
+          // console.log("退场完成", this.name);
           if (this.$animatePlugin.orderGroupName !== this.name) {
             this.visibility = false;
           }
+          this.$emit('groupLeaveEnd')
         });
       }, 0);
     },

@@ -35,3 +35,7 @@ npm i @cutting-mat/vue-animate-layout -S
     </animate-box>
 </animate-group>
 ```
+
+## Props
+
+## Events
