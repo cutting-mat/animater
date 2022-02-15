@@ -1,10 +1,11 @@
 <template>
   <div class="flex-col visual" v-if="screen.width" :style="{width: screen.width+'px', height: screen.height+'px'}">
     <div class="header">
-      头部logo(匿名动画组自动展示)
+      头部logo(受控模式)
+      <el-button @click="groupVisible=!groupVisible">toggle</el-button>
     </div>
     <div class="flex-1 flex-row">
-      <animate-group class="left flex-col" enterClass="animate__fadeInLeft" leaveClass="animate__fadeOutLeft">
+      <animate-group class="left flex-col" v-model="groupVisible" enterClass="animate__fadeInLeft" leaveClass="animate__fadeOutLeft">
         <animate-box class="flex-1 visual-block">
           left 1
         </animate-box>
@@ -15,12 +16,12 @@
           left 3
         </animate-box>
       </animate-group>
-      
+
       <div class="flex-1 center">
         main
       </div>
-
-      <animate-group class="right flex-col" enterClass="animate__fadeInRight" leaveClass="animate__fadeOutRight">
+      
+      <animate-group class="right flex-col" v-model="groupVisible" enterClass="animate__fadeInRight" leaveClass="animate__fadeOutRight">
         <animate-box class="flex-1 visual-block">
           right 1
         </animate-box>
@@ -42,6 +43,7 @@ export default {
   data() {
     return {
       screen: {},
+      groupVisible: true
     };
   },
   methods: {},

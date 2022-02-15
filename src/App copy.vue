@@ -139,7 +139,7 @@ export default {
   methods: {
     tab(v) {
       this.curr = v;
-      this.$changeGroup(`group${v}`);
+      this.$animateGroup.enter(`group${v}`);
     },
     handleEnterEnd(cname){
       console.log('animateBox进场完成', cname)
@@ -150,7 +150,7 @@ export default {
   },
 
   created() {
-    this.$changeGroup("group1");
+    this.$animateGroup.enter("group1");
   },
 };
 </script>

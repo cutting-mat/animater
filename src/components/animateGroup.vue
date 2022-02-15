@@ -5,14 +5,33 @@
 </template>
 
 <script>
+import { PluginData, registerGroup, destroyGroup } from "../index";
+
 export default {
   name: `AnimateGroup`,
+  model: {
+    prop: "value",
+    event: "change",
+  },
   props: {
+    value: {
+      required: false,
+    },
     name: {
       type: String,
       required: false,
     },
-    animateDelay: {
+    enterClass: {
+      type: String,
+      required: false,
+      default: "animate__zoomIn",
+    },
+    leaveClass: {
+      type: String,
+      required: false,
+      default: "animate__zoomOut",
+    },
+    delay: {
       type: Number,
       required: false,
       default: 0.3,
@@ -23,84 +42,110 @@ export default {
       default: 0.8,
     },
   },
-
   data() {
     return {
+      PluginData,
       visibility: false,
       animateTimerHandle: null,
-      index: 0
+      index: 0,
     };
   },
-  computed: {
-    animatePlugin() {
-      return this.$animatePlugin;
-    },
-  },
   watch: {
-    "$animatePlugin.orderGroupName": {
-      handler(orderGroupName) {
-        if (orderGroupName === this.name) {
-          this.showAnimateBox();
-        } else {
-          this.hideAnimateBox();
+    value: {
+      handler() {
+        if (this.value) {
+          this.enter();
+        } else if (this.value !== undefined) {
+          this.leave();
         }
       },
       immediate: true,
     },
+    visibility: {
+      handler() {
+        this.$emit("change", this.visibility);
+      },
+      immediate: true,
+    },
+    "PluginData.orderGroupName": {
+      handler(orderGroupName) {
+        if (orderGroupName === this.name) {
+          this.enter();
+        } else {
+          this.leave();
+        }
+      },
+    },
   },
   methods: {
-    clearAnimateTimerHandle(){
+    clearAnimateTimerHandle() {
       if (this.animateTimerHandle) {
         window.clearTimeout(this.animateTimerHandle);
         this.animateTimerHandle = null;
       }
     },
-    showAnimateBox() {
+    enter() {
       this.visibility = true;
-      this.clearAnimateTimerHandle()
+      this.clearAnimateTimerHandle();
 
       this.animateTimerHandle = setTimeout(
         () => {
           this.animateTimerHandle = null;
-          this.$animatePlugin.currentGroupName = this.name;
-          this.$emit('groupEnterStart')
+          this.PluginData.currentGroupName = this.name;
+          this.$emit("groupEnterStart");
+
           Promise.all(
-            this.$children.map((c, i) => c.enter(this.animateDelay * i * 1000))
-          ).then((values) => {
-            this.$emit('groupEnterEnd')
-          }).catch(err => {
-            console.warn(err)
-          })
+            this.$children.map((c, i) => c.enter(this.delay * i * 1000))
+          )
+            .then((values) => {
+              // console.log('进场完成', values)
+              this.$emit("groupEnterEnd");
+            })
+            .catch((err) => {
+              console.warn(err);
+            });
         },
-        this.$animatePlugin.currentGroupName ? this.groupDelay * 1000 : 0
+        this.PluginData.currentGroupName ? this.groupDelay * 1000 : 0
       );
     },
-    hideAnimateBox() {
-      this.clearAnimateTimerHandle()
+    leave() {
+      this.clearAnimateTimerHandle();
 
       this.animateTimerHandle = setTimeout(() => {
-        // console.log("开始退场", this.name);
-        this.$emit('groupLeaveStart')
+        this.animateTimerHandle = null;
+        this.$emit("groupLeaveStart");
+
         Promise.all(
-          this.$children.map((c, i) => c.leave(this.animateDelay * i * 1000))
-        ).then((values) => {
-          // console.log("退场完成", this.name);
-          if (this.$animatePlugin.orderGroupName !== this.name) {
+          this.$children.map((c, i) => c.leave(this.delay * i * 1000))
+        )
+          .then((values) => {
+            // console.log("退场完成", values);
+            if(this.PluginData.orderGroupName === this.name && this.name){
+              this.PluginData.orderGroupName = undefined
+            }
             this.visibility = false;
-          }
-          this.$emit('groupLeaveEnd')
-        }).catch(err => {
-          console.warn(err)
-        })
+            this.$emit("groupLeaveEnd");
+          })
+          .catch((err) => {
+            console.warn(err);
+          });
       }, 0);
     },
   },
-  mounted(){
-    this.index = this.$groupCreated(this.name)
+  created() {
+    if (
+      this.PluginData.orderGroupName === this.name &&
+      this.value === undefined
+    ) {
+      this.enter();
+    }
   },
-  destroyed(){
-    this.$groupDestroyed(this.name, this.index)
-  }
+  mounted() {
+    this.index = registerGroup(this.name);
+  },
+  destroyed() {
+    destroyGroup(this.name, this.index);
+  },
 };
 </script>
 

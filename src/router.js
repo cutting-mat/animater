@@ -10,4 +10,11 @@ const route = new Router({
   routes: dataV
 });
 
+route.beforeEach((to, from, next) => {
+  if (to.name) {
+    document.title = to.meta && to.meta.title || to.name;
+  }
+  next()
+})
+
 export default route

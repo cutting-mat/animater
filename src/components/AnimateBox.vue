@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="keepDomLayout || visibility"
+    v-show="asSubassembly || visibility"
     :class="animateClass"
     :style="{
       'animation-duration': duration + 's',
@@ -20,19 +20,21 @@ export default {
   },
   props: {
     value: {
-      type: Boolean,
       required: false,
-      default: false,
     },
     enterClass: {
       type: String,
       required: false,
-      default: "animate__fadeInLeft",
+      default() {
+        return this.$parent.$props.enterClass || "animate__fadeIn";
+      },
     },
     leaveClass: {
       type: String,
       required: false,
-      default: "animate__fadeOutLeft",
+      default() {
+        return this.$parent.$props.leaveClass || "animate__fadeOut";
+      },
     },
     duration: {
       type: Number,
@@ -49,17 +51,23 @@ export default {
     };
   },
   computed: {
-    keepDomLayout() {
+    asSubassembly() {
       return this.$parent && this.$parent.$options.name === "AnimateGroup";
     },
   },
   watch: {
     value: {
       handler() {
-        if (this.value) {
-          this.enter();
+        if (this.asSubassembly && this.value !== undefined) {
+          console.warn(
+            "AnimateBox作为AnimateGroup的子组件时不支持v-model/:value受控模式"
+          );
         } else {
-          this.leave();
+          if (this.value) {
+            this.enter();
+          } else {
+            this.leave();
+          }
         }
       },
       immediate: true,
@@ -80,7 +88,7 @@ export default {
     },
     enter(delay) {
       return new Promise((resolve) => {
-        if(this.leaveTimerHandle){
+        if (this.leaveTimerHandle) {
           // 如果正在退场，立即终止
           this.clearTimerHandle(this.leaveTimerHandle);
           this.animateClass = "";
@@ -88,9 +96,9 @@ export default {
 
         this.enterTimerHandle = setTimeout(() => {
           if (this.visibility) {
-            return resolve('already enter');
+            return resolve("already enter");
           }
-          
+
           this.visibility = true;
           // 执行动画
           this.animateClass = "animate__animated " + this.enterClass;
@@ -101,14 +109,14 @@ export default {
             this.animateClass = "";
             this.clearTimerHandle(this.enterTimerHandle);
             this.$emit("enterEnd");
-            resolve('done enter');
+            resolve("done enter");
           }, this.duration * 1000);
         }, delay || 0);
       });
     },
     leave(delay) {
       return new Promise((resolve) => {
-        if(this.enterTimerHandle){
+        if (this.enterTimerHandle) {
           // 如果正在进场，立即终止
           this.clearTimerHandle(this.enterTimerHandle);
           this.animateClass = "";
@@ -116,7 +124,7 @@ export default {
 
         this.leaveTimerHandle = setTimeout(() => {
           if (!this.visibility) {
-            return resolve('already leave');
+            return resolve("already leave");
           }
 
           this.animateClass = "animate__animated " + this.leaveClass;
@@ -128,7 +136,7 @@ export default {
             this.animateClass = "";
             this.clearTimerHandle(this.leaveTimerHandle);
             this.$emit("leaveEnd");
-            resolve('done leave');
+            resolve("done leave");
           }, this.duration * 1000);
         }, delay || 0);
       });

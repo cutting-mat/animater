@@ -1,56 +1,62 @@
-import containerComponent from "./components/animateGroup.vue";
-import animateComponent from "./components/animate.vue";
+import Vue from 'vue';
+import AnimateBox from "./components/AnimateBox.vue";
+import AnimateGroup from "./components/AnimateGroup.vue";
 import 'animate.css';
+
+// 组件变量
+export const PluginData = Vue.observable({
+    currentGroupName: undefined,
+    orderGroupName: undefined,
+    groups: new Map()
+})
+
+// 组注册
+export const registerGroup = function (groupName = 'anonymous') {
+    if (!PluginData.groups.size) {
+        PluginData.currentGroupName = undefined
+        PluginData.orderGroupName = undefined
+    }
+    if(!PluginData.groups.has(groupName)){
+        PluginData.groups.set(groupName, new Set())
+    }
+    const index = PluginData.groups.get(groupName).size + 1;
+    PluginData.groups.get(groupName).add(index)
+
+    return index
+}
+
+// 组注销
+export const destroyGroup = function(groupName = 'anonymous', index){
+    if(PluginData.groups.has(groupName)){
+        PluginData.groups.get(groupName).delete(index)
+
+        if(!PluginData.groups.get(groupName).size){
+            PluginData.groups.delete(groupName)
+        }
+        // console.log('delete', groupName, PluginData.groups.keys())
+    }
+}
 
 export default {
     install: function (Vue) {
-        let PluginData = Vue.observable({
-            currentGroupName: undefined,
-            orderGroupName: undefined,
-            groups: new Map()
-        })
-
-        Vue.prototype.$animatePlugin = PluginData;
-
-        Vue.prototype.$groupCreated = function (groupName = 'anonymous') {
-            // 组注册
-            if (!PluginData.groups.size) {
-                PluginData.currentGroupName = undefined
+        
+        Vue.prototype.$animateGroup = {
+            enter: function (groupName) {
+                Vue.nextTick(() => {
+                    if(PluginData.groups.has(groupName)){
+                        PluginData.orderGroupName = groupName
+                    }else{
+                        console.warn('[vue-animate-layout] groupName 未注册', groupName)
+                    }
+                    
+                })
+            },
+            leave: function(){
                 PluginData.orderGroupName = undefined
             }
-            if(!PluginData.groups.has(groupName)){
-                PluginData.groups.set(groupName, new Set())
-            }
-            const index = PluginData.groups.get(groupName).size + 1;
-            PluginData.groups.get(groupName).add(index)
-
-            return index
         }
 
-        Vue.prototype.$groupDestroyed = function(groupName = 'anonymous', index){
-            // 组注销
-            if(PluginData.groups.has(groupName)){
-                PluginData.groups.get(groupName).delete(index)
-
-                if(!PluginData.groups.get(groupName).size){
-                    PluginData.groups.delete(groupName)
-                }
-                // console.log('delete', groupName, PluginData.groups.keys())
-            }
-        }
-
-        Vue.prototype.$changeGroup = function (groupName) {
-            Vue.nextTick(() => {
-                if(PluginData.groups.has(groupName)){
-                    PluginData.orderGroupName = groupName
-                }else{
-                    console.warn('groupName 未注册', groupName)
-                }
-                
-            })
-        }
-
-        Vue.component(containerComponent.name, containerComponent)
-        Vue.component(animateComponent.name, animateComponent)
+        Vue.component(AnimateBox.name, AnimateBox)
+        Vue.component(AnimateGroup.name, AnimateGroup)
     }
 }
