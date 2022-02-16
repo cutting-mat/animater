@@ -1,19 +1,19 @@
-# @cutting-mat/vue-animate-layout
+# @cutting-mat/animater
 
-[![npm](https://img.shields.io/npm/v/@cutting-mat/vue-animate-layout.svg)](https://www.npmjs.com/package/@cutting-mat/vue-animate-layout) [![license](https://img.shields.io/github/license/cutting-mat/vue-animate-layout.svg)]()
+[![npm](https://img.shields.io/npm/v/@cutting-mat/animater.svg)](https://www.npmjs.com/package/@cutting-mat/animater) [![license](https://img.shields.io/github/license/cutting-mat/animater.svg)]()
 
 Base on [Animate.css](https://animate.style/)
 
 ## Install
 
 ``` bash
-npm i @cutting-mat/vue-animate-layout -S
+npm i @cutting-mat/animater -S
 ```
 
 ## Use
 
 ```js
-import customPlugin from '@cutting-mat/vue-animate-layout';
+import customPlugin from '@cutting-mat/animater';
 Vue.use(customPlugin);
 ```
 
@@ -31,7 +31,7 @@ Vue.use(customPlugin);
 </animate-group>
 ```
 
-## AnimateGroup Props
+## AnimatedGroup Props
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
@@ -42,7 +42,7 @@ Vue.use(customPlugin);
 | delay | 子AnimateBox元素的进出场动画间隔，单位s | Number | -- | 0.3 |
 | groupDelay | 具名模式下，相邻动画组进场退场的动画间隔 | Number | -- | 0.8 |
 
-## AnimateGroup Events
+## AnimatedGroup Events
 
 | 事件名  | 说明 | 回调参数 |
 | ----  | ---- | ---- |
@@ -52,7 +52,7 @@ Vue.use(customPlugin);
 | groupLeaveStart | 退场动画开始 | -- |
 | groupLeaveEnd | 退场动画结束 | -- |
 
-## AnimateBox Props
+## Animated Props
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
@@ -61,7 +61,7 @@ Vue.use(customPlugin);
 | leaveClass | 退场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String |[Animate.css](https://animate.style/) | 'animate__fadeOut' |
 | duration | 进出场动画时长，单位s | Number | -- | 0.5 |
 
-## AnimateBox Events
+## Animated Events
 
 | 事件名  | 说明 | 回调参数 |
 | ----  | ---- | ---- |
@@ -75,5 +75,5 @@ Vue.use(customPlugin);
 
 | 方法名  | 说明 | 参数 |
 | ----  | ---- | ---- |
-| $animateGroup.enter | 具名模式，指定具名动画组进场 | 动画组名称 name[String] |
-| $animateGroup.leave | 具名模式，前台动画组退场 | -- |
+| $AnimatedGroup.enter | 具名模式，指定具名动画组进场 | 动画组名称 name[String] |
+| $AnimatedGroup.leave | 具名模式，前台动画组退场 | -- |

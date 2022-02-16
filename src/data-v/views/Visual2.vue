@@ -5,33 +5,33 @@
       <el-button @click="groupVisible=!groupVisible">toggle</el-button>
     </div>
     <div class="flex-1 flex-row">
-      <animate-group class="left flex-col" v-model="groupVisible" enterClass="animate__fadeInLeft" leaveClass="animate__fadeOutLeft">
-        <animate-box class="flex-1 visual-block">
+      <animated-group class="left flex-col" v-model="groupVisible" enterClass="animate__fadeInLeft" leaveClass="animate__fadeOutLeft">
+        <animated class="flex-1 visual-block">
           left 1
-        </animate-box>
-        <animate-box class="flex-1 visual-block">
+        </animated>
+        <animated class="flex-1 visual-block">
           left 2
-        </animate-box>
-        <animate-box class="flex-1 visual-block">
+        </animated>
+        <animated class="flex-1 visual-block">
           left 3
-        </animate-box>
-      </animate-group>
+        </animated>
+      </animated-group>
 
       <div class="flex-1 center">
         main
       </div>
       
-      <animate-group class="right flex-col" v-model="groupVisible" enterClass="animate__fadeInRight" leaveClass="animate__fadeOutRight">
-        <animate-box class="flex-1 visual-block">
+      <animated-group class="right flex-col" v-model="groupVisible" enterClass="animate__fadeInRight" leaveClass="animate__fadeOutRight">
+        <animated class="flex-1 visual-block">
           right 1
-        </animate-box>
-        <animate-box class="flex-1 visual-block">
+        </animated>
+        <animated class="flex-1 visual-block">
           right 2
-        </animate-box>
-        <animate-box class="flex-1 visual-block">
+        </animated>
+        <animated class="flex-1 visual-block">
           right 3
-        </animate-box>
-      </animate-group>
+        </animated>
+      </animated-group>
     </div>
   </div>
 </template>

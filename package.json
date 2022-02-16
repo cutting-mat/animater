@@ -1,18 +1,18 @@
 {
-  "name": "@cutting-mat/vue-animate-layout",
+  "name": "@cutting-mat/animater",
   "version": "1.0.5",
   "description": "",
   "main": "dist/index.common.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cutting-mat/vue-animate-layout.git"
+    "url": "git+https://github.com/cutting-mat/animater.git"
   },
   "author": "tower1229@foxmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cutting-mat/vue-animate-layout/issues"
+    "url": "https://github.com/cutting-mat/animater/issues"
   },
-  "homepage": "https://github.com/cutting-mat/vue-animate-layout#readme",
+  "homepage": "https://github.com/cutting-mat/animater#readme",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",

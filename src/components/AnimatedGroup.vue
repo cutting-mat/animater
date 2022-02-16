@@ -8,7 +8,7 @@
 import { PluginData, registerGroup, destroyGroup } from "../index";
 
 export default {
-  name: `AnimateGroup`,
+  name: `AnimatedGroup`,
   model: {
     prop: "value",
     event: "change",

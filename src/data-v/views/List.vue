@@ -1,110 +1,110 @@
 <template>
   <div id="app">
-    <animate-group name="group1" class="left" @groupEnterEnd="handleGroupEnterEnd('group1')">
-      <animate-box
-        class="animate-box left1"
+    <animated-group name="group1" class="left" @groupEnterEnd="handleGroupEnterEnd('group1')">
+      <animated
+        class="animated left1"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
-        @enterEnd="handleEnterEnd('animate-box left1')"
+        @enterEnd="handleEnterEnd('animated left1')"
       >
         <span>1-1</span>
-      </animate-box>
-      <animate-box
-        class="animate-box left1"
+      </animated>
+      <animated
+        class="animated left1"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
       >
         1-2
-      </animate-box>
-      <animate-box
-        class="animate-box left1"
+      </animated>
+      <animated
+        class="animated left1"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
       >
         1-3
-      </animate-box>
-    </animate-group>
-    <animate-group name="group2" class="left">
-      <animate-box
-        class="animate-box left2"
+      </animated>
+    </animated-group>
+    <animated-group name="group2" class="left">
+      <animated
+        class="animated left2"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
       >
         2-1
-      </animate-box>
-      <animate-box
-        class="animate-box left2"
+      </animated>
+      <animated
+        class="animated left2"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
       >
         2-2
-      </animate-box>
-      <animate-box
-        class="animate-box left2"
+      </animated>
+      <animated
+        class="animated left2"
         enterClass="animate__zoomIn"
         leaveClass="animate__zoomOut"
       >
         2-3
-      </animate-box>
-    </animate-group>
+      </animated>
+    </animated-group>
 
     
-    <animate-group name="group1" class="right">
-      <animate-box
-        class="animate-box left1"
+    <animated-group name="group1" class="right">
+      <animated
+        class="animated left1"
         enterClass="animate__fadeInRight"
         leaveClass="animate__fadeOutRight"
       >
         1-1
-      </animate-box>
-      <animate-box
-        class="animate-box left1"
+      </animated>
+      <animated
+        class="animated left1"
         enterClass="animate__fadeInRight"
         leaveClass="animate__fadeOutRight"
       >
         1-2
-      </animate-box>
-      <animate-box
-        class="animate-box left1"
+      </animated>
+      <animated
+        class="animated left1"
         enterClass="animate__fadeInRight"
         leaveClass="animate__fadeOutRight"
       >
         1-3
-      </animate-box>
-    </animate-group>
-    <animate-group name="group2" class="right">
-      <animate-box
-        class="animate-box left2"
+      </animated>
+    </animated-group>
+    <animated-group name="group2" class="right">
+      <animated
+        class="animated left2"
         enterClass="animate__fadeInRight"
         leaveClass="animate__fadeOutRight"
       >
         2-1
-      </animate-box>
-      <animate-box
-        class="animate-box left2"
+      </animated>
+      <animated
+        class="animated left2"
         enterClass="animate__fadeInRight"
         leaveClass="animate__fadeOutRight"
       >
         2-2
-      </animate-box>
-      <animate-box
-        class="animate-box left2"
+      </animated>
+      <animated
+        class="animated left2"
         enterClass="animate__fadeInRight"
         leaveClass="animate__fadeOutRight"
       >
         2-3
-      </animate-box>
-    </animate-group>
+      </animated>
+    </animated-group>
 
     <!-- dialog -->
-    <animate-box
+    <animated
       class="zoom-box"
       v-model="windowVisible"
       enterClass="animate__zoomIn"
       leaveClass="animate__zoomOut"
     >
       window
-    </animate-box>
+    </animated>
 
     <!-- control -->
     <div class="center">
@@ -139,10 +139,10 @@ export default {
   methods: {
     tab(v) {
       this.curr = v;
-      this.$animateGroup.enter(`group${v}`);
+      this.$AnimatedGroup.enter(`group${v}`);
     },
     handleEnterEnd(cname){
-      console.log('animateBox进场完成', cname)
+      console.log('Animated进场完成', cname)
     },
     handleGroupEnterEnd(gname){
       console.log('group进场完成', gname)
@@ -150,14 +150,14 @@ export default {
   },
 
   created() {
-    this.$animateGroup.enter("group1");
+    this.$AnimatedGroup.enter("group1");
   },
 };
 </script>
 
 <style scoped>
 
-.animate-box {
+.animated {
   width: 300px;
   height: 200px;
   background-color: skyblue;
@@ -167,17 +167,17 @@ export default {
   align-items: center;
   font-size: 18px;
 }
-.animate-box1 {
+.animated1 {
   position: absolute;
   top: 20px;
   left: 20px;
 }
-.animate-box2 {
+.animated2 {
   position: absolute;
   top: 240px;
   left: 20px;
 }
-.animate-box3 {
+.animated3 {
   position: absolute;
   top: 460px;
   left: 20px;

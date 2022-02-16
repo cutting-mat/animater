@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import AnimateBox from "./components/AnimateBox.vue";
-import AnimateGroup from "./components/AnimateGroup.vue";
+import Animated from "./components/Animated.vue";
+import AnimatedGroup from "./components/AnimatedGroup.vue";
 import 'animate.css';
 
 // 组件变量
@@ -40,7 +40,7 @@ export const destroyGroup = function(groupName = 'anonymous', index){
 export default {
     install: function (Vue) {
         
-        Vue.prototype.$animateGroup = {
+        Vue.prototype.$AnimatedGroup = {
             enter: function (groupName) {
                 Vue.nextTick(() => {
                     if(PluginData.groups.has(groupName)){
@@ -56,7 +56,7 @@ export default {
             }
         }
 
-        Vue.component(AnimateBox.name, AnimateBox)
-        Vue.component(AnimateGroup.name, AnimateGroup)
+        Vue.component(Animated.name, Animated)
+        Vue.component(AnimatedGroup.name, AnimatedGroup)
     }
 }

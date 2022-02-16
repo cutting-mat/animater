@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "AnimateBox",
+  name: "Animated",
   model: {
     prop: "value",
     event: "change",
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     asSubassembly() {
-      return this.$parent && this.$parent.$options.name === "AnimateGroup";
+      return this.$parent && this.$parent.$options.name === "AnimatedGroup";
     },
   },
   watch: {
@@ -60,7 +60,7 @@ export default {
       handler() {
         if (this.asSubassembly && this.value !== undefined) {
           console.warn(
-            "AnimateBox作为AnimateGroup的子组件时不支持v-model/:value受控模式"
+            "Animated作为AnimatedGroup的子组件时不支持v-model/:value受控模式"
           );
         } else {
           if (this.value) {

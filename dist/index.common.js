@@ -616,7 +616,7 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimateBox.vue?vue&type=template&id=42800a21&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Animated.vue?vue&type=template&id=ff59d588&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.asSubassembly || _vm.visibility),expression:"asSubassembly || visibility"}],class:_vm.animateClass,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
@@ -624,9 +624,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/AnimateBox.vue?vue&type=template&id=42800a21&
+// CONCATENATED MODULE: ./src/components/Animated.vue?vue&type=template&id=ff59d588&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimateBox.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Animated.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -641,8 +641,8 @@ var staticRenderFns = []
 //
 //
 
-/* harmony default export */ var AnimateBoxvue_type_script_lang_js_ = ({
-  name: "AnimateBox",
+/* harmony default export */ var Animatedvue_type_script_lang_js_ = ({
+  name: "Animated",
   model: {
     prop: "value",
     event: "change",
@@ -681,7 +681,7 @@ var staticRenderFns = []
   },
   computed: {
     asSubassembly() {
-      return this.$parent && this.$parent.$options.name === "AnimateGroup";
+      return this.$parent && this.$parent.$options.name === "AnimatedGroup";
     },
   },
   watch: {
@@ -689,7 +689,7 @@ var staticRenderFns = []
       handler() {
         if (this.asSubassembly && this.value !== undefined) {
           console.warn(
-            "AnimateBox作为AnimateGroup的子组件时不支持v-model/:value受控模式"
+            "Animated作为AnimatedGroup的子组件时不支持v-model/:value受控模式"
           );
         } else {
           if (this.value) {
@@ -773,8 +773,8 @@ var staticRenderFns = []
   },
 });
 
-// CONCATENATED MODULE: ./src/components/AnimateBox.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_AnimateBoxvue_type_script_lang_js_ = (AnimateBoxvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/Animated.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_Animatedvue_type_script_lang_js_ = (Animatedvue_type_script_lang_js_); 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
 
@@ -875,7 +875,7 @@ function normalizeComponent (
   }
 }
 
-// CONCATENATED MODULE: ./src/components/AnimateBox.vue
+// CONCATENATED MODULE: ./src/components/Animated.vue
 
 
 
@@ -884,7 +884,7 @@ function normalizeComponent (
 /* normalize component */
 
 var component = normalizeComponent(
-  components_AnimateBoxvue_type_script_lang_js_,
+  components_Animatedvue_type_script_lang_js_,
   render,
   staticRenderFns,
   false,
@@ -894,15 +894,15 @@ var component = normalizeComponent(
   
 )
 
-/* harmony default export */ var AnimateBox = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimateGroup.vue?vue&type=template&id=8664bce6&
-var AnimateGroupvue_type_template_id_8664bce6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
-var AnimateGroupvue_type_template_id_8664bce6_staticRenderFns = []
+/* harmony default export */ var Animated = (component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=35d0f982&
+var AnimatedGroupvue_type_template_id_35d0f982_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
+var AnimatedGroupvue_type_template_id_35d0f982_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/AnimateGroup.vue?vue&type=template&id=8664bce6&
+// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=35d0f982&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimateGroup.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -912,8 +912,8 @@ var AnimateGroupvue_type_template_id_8664bce6_staticRenderFns = []
 
 
 
-/* harmony default export */ var AnimateGroupvue_type_script_lang_js_ = ({
-  name: `AnimateGroup`,
+/* harmony default export */ var AnimatedGroupvue_type_script_lang_js_ = ({
+  name: `AnimatedGroup`,
   model: {
     prop: "value",
     event: "change",
@@ -1053,9 +1053,9 @@ var AnimateGroupvue_type_template_id_8664bce6_staticRenderFns = []
   },
 });
 
-// CONCATENATED MODULE: ./src/components/AnimateGroup.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_AnimateGroupvue_type_script_lang_js_ = (AnimateGroupvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/AnimateGroup.vue
+// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_AnimatedGroupvue_type_script_lang_js_ = (AnimatedGroupvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue
 
 
 
@@ -1063,10 +1063,10 @@ var AnimateGroupvue_type_template_id_8664bce6_staticRenderFns = []
 
 /* normalize component */
 
-var AnimateGroup_component = normalizeComponent(
-  components_AnimateGroupvue_type_script_lang_js_,
-  AnimateGroupvue_type_template_id_8664bce6_render,
-  AnimateGroupvue_type_template_id_8664bce6_staticRenderFns,
+var AnimatedGroup_component = normalizeComponent(
+  components_AnimatedGroupvue_type_script_lang_js_,
+  AnimatedGroupvue_type_template_id_35d0f982_render,
+  AnimatedGroupvue_type_template_id_35d0f982_staticRenderFns,
   false,
   null,
   null,
@@ -1074,7 +1074,7 @@ var AnimateGroup_component = normalizeComponent(
   
 )
 
-/* harmony default export */ var AnimateGroup = (AnimateGroup_component.exports);
+/* harmony default export */ var AnimatedGroup = (AnimatedGroup_component.exports);
 // EXTERNAL MODULE: ./node_modules/animate.css/animate.css
 var animate = __webpack_require__("77ed");
 
@@ -1121,7 +1121,7 @@ const destroyGroup = function(groupName = 'anonymous', index){
 /* harmony default export */ var src_0 = ({
     install: function (Vue) {
         
-        Vue.prototype.$animateGroup = {
+        Vue.prototype.$AnimatedGroup = {
             enter: function (groupName) {
                 Vue.nextTick(() => {
                     if(PluginData.groups.has(groupName)){
@@ -1137,8 +1137,8 @@ const destroyGroup = function(groupName = 'anonymous', index){
             }
         }
 
-        Vue.component(AnimateBox.name, AnimateBox)
-        Vue.component(AnimateGroup.name, AnimateGroup)
+        Vue.component(Animated.name, Animated)
+        Vue.component(AnimatedGroup.name, AnimatedGroup)
     }
 });
 
