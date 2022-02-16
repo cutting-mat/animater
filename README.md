@@ -13,8 +13,8 @@ npm i @cutting-mat/animater -S
 ## Use
 
 ```js
-import customPlugin from '@cutting-mat/animater';
-Vue.use(customPlugin);
+import animater from '@cutting-mat/animater';
+Vue.use(animater);
 ```
 
 ``` html
@@ -35,7 +35,7 @@ Vue.use(customPlugin);
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle/:value | 动画组的进出场状态(受控模式) | Boolean | -- | -- |
+| v-modle/value | 动画组的进出场状态(受控模式) | Boolean | -- | -- |
 | name | 动画组名称(具名模式) | String | -- | -- |
 | enterClass | 子AnimateBox元素的进场动画class | String |[Animate.css](https://animate.style/) | 'animate__zoomIn' |
 | leaveClass | 子AnimateBox元素的退场动画class | String |[Animate.css](https://animate.style/) | 'animate__zoomOut' |
@@ -56,7 +56,7 @@ Vue.use(customPlugin);
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle/:value | 动画容器的进出场状态(作为子组件时不可用) | Boolean | -- | -- |
+| v-modle/value | 动画容器的进出场状态(作为子组件时不可用) | Boolean | -- | -- |
 | enterClass | 进场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String |[Animate.css](https://animate.style/) | 'animate__fadeIn' |
 | leaveClass | 退场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String |[Animate.css](https://animate.style/) | 'animate__fadeOut' |
 | duration | 进出场动画时长，单位s | Number | -- | 0.5 |
