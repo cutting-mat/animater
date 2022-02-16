@@ -2,8 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/animater.svg)](https://www.npmjs.com/package/@cutting-mat/animater) [![license](https://img.shields.io/github/license/cutting-mat/animater.svg)]()
 
-Base on [Animate.css](https://animate.style/)
-
 ## Install
 
 ``` bash
@@ -18,17 +16,17 @@ Vue.use(animater);
 ```
 
 ``` html
-<animate-group>
-    <animate-box>
+<animated-group>
+    <animated>
         1-1
-    </animate-box>
-    <animate-box>
+    </animated>
+    <animated>
         1-2
-    </animate-box>
-    <animate-box>
+    </animated>
+    <animated>
         1-3
-    </animate-box>
-</animate-group>
+    </animated>
+</animated-group>
 ```
 
 ## AnimatedGroup Props
