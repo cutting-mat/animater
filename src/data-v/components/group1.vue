@@ -3,74 +3,34 @@
     <animated-group
       name="group1"
       class="leftSide group1"
-      @groupEnterEnd="handleGroupEnterEnd('group1')"
+      enterClass="animate__fadeInLeft"
+      leaveClass="animate__fadeOutLeft"
     >
-      <animated
-        class="animated "
-        enterClass="animate__zoomIn"
-        leaveClass="animate__zoomOut"
-        @enterEnd="handleEnterEnd('animated ')"
-      >
+      <animated class="animated">
         <span>1-1</span>
       </animated>
-      <animated
-        class="animated "
-        enterClass="animate__zoomIn"
-        leaveClass="animate__zoomOut"
-      >
-        1-2
-      </animated>
-      <animated
-        class="animated "
-        enterClass="animate__zoomIn"
-        leaveClass="animate__zoomOut"
-      >
-        1-3
-      </animated>
+      <animated class="animated"> 1-2 </animated>
+      <animated class="animated"> 1-3 </animated>
     </animated-group>
 
-    <animated-group name="group1" class="rightSide">
-      <animated
-        class="animated "
-        enterClass="animate__fadeInRight"
-        leaveClass="animate__fadeOutRight"
-      >
-        1-1
-      </animated>
-      <animated
-        class="animated "
-        enterClass="animate__fadeInRight"
-        leaveClass="animate__fadeOutRight"
-      >
-        1-2
-      </animated>
-      <animated
-        class="animated "
-        enterClass="animate__fadeInRight"
-        leaveClass="animate__fadeOutRight"
-      >
-        1-3
-      </animated>
+    <animated-group
+      name="group1"
+      class="rightSide group1"
+      enterClass="animate__fadeInRight"
+      leaveClass="animate__fadeOutRight"
+    >
+      <animated class="animated"> 1-1 </animated>
+      <animated class="animated"> 1-2 </animated>
+      <animated class="animated"> 1-3 </animated>
     </animated-group>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    handleEnterEnd(cname){
-      console.log('Animated进场完成', cname)
-    },
-    handleGroupEnterEnd(gname){
-      console.log('group进场完成', gname)
-    }
-  },
-  
-};
+export default {};
 </script>
 
 <style scoped>
-
 .animated {
   width: 300px;
   height: 200px;
@@ -105,7 +65,7 @@ export default {
 .group1 .animated {
   background: pink;
 }
-.group2 .animated{
+.group2 .animated {
   background: greenyellow;
 }
 </style>

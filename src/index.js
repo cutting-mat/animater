@@ -11,26 +11,28 @@ export const PluginData = Vue.observable({
 })
 
 // 组注册
-export const registerGroup = function (groupName = 'anonymous') {
+export const registerGroup = function (vm) {
+    const groupName = vm.name || 'anonymous';
+    const index = vm._uid;
+
     if (!PluginData.groups.size) {
         PluginData.currentGroupName = undefined
         PluginData.orderGroupName = undefined
     }
-    if(!PluginData.groups.has(groupName)){
+    if (!PluginData.groups.has(groupName)) {
         PluginData.groups.set(groupName, new Set())
     }
-    const index = PluginData.groups.get(groupName).size + 1;
-    PluginData.groups.get(groupName).add(index)
-
-    return index
+    PluginData.groups.get(groupName).add(vm)
 }
 
 // 组注销
-export const destroyGroup = function(groupName = 'anonymous', index){
-    if(PluginData.groups.has(groupName)){
-        PluginData.groups.get(groupName).delete(index)
+export const destroyGroup = function (vm) {
+    const groupName = vm.name || 'anonymous';
 
-        if(!PluginData.groups.get(groupName).size){
+    if (PluginData.groups.has(groupName)) {
+        PluginData.groups.get(groupName).delete(vm)
+
+        if (!PluginData.groups.get(groupName).size) {
             PluginData.groups.delete(groupName)
         }
         // console.log('delete', groupName, PluginData.groups.keys())
@@ -39,20 +41,48 @@ export const destroyGroup = function(groupName = 'anonymous', index){
 
 export default {
     install: function (Vue) {
-        
+
         Vue.prototype.$AnimatedGroup = {
             enter: function (groupName) {
-                Vue.nextTick(() => {
-                    if(PluginData.groups.has(groupName)){
-                        PluginData.orderGroupName = groupName
-                    }else{
-                        console.warn('[vue-animate-layout] groupName 未注册', groupName)
-                    }
-                    
+                return new Promise((resolve, reject) => {
+                    Vue.nextTick(() => {
+                        if (groupName && PluginData.groups.has(groupName)) {
+                            if (PluginData.currentGroupName === groupName) {
+                                // 目标正在前台
+                                resolve(`${groupName} already on show`)
+                            } else {
+                                PluginData.orderGroupName = groupName;
+                                // 前台退场
+                                if (PluginData.currentGroupName) {
+                                    PluginData.groups.get(PluginData.currentGroupName).forEach(vm => {
+                                        vm.leave()
+                                    })
+                                    
+                                } 
+                                // 开始进场
+                                PluginData.groups.get(groupName).forEach(vm => {
+                                    resolve(vm.enter())
+                                })
+                            }
+
+                        } else {
+                            reject(`groupName "${groupName}" 未注册`)
+                        }
+                    })
                 })
             },
-            leave: function(){
-                PluginData.orderGroupName = undefined
+            leave: function () {
+                PluginData.orderGroupName = undefined;
+
+                return new Promise((resolve, reject) => {
+                    if (PluginData.currentGroupName) {
+                        PluginData.groups.get(PluginData.currentGroupName).forEach(vm => {
+                            resolve(vm.leave())
+                        })
+                    } else {
+                        resolve('当前没有正在展示的 group')
+                    }
+                })
             }
         }
 

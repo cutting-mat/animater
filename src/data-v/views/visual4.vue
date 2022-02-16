@@ -16,17 +16,18 @@
 
     <!-- control -->
     <div class="center">
-      <button
-        class="button"
+      <el-button
         :class="curr == item ? 'currButton' : ''"
         v-for="item in buttonList"
         :key="item"
         @click="tab(item)"
       >
-        {{ item }}
-      </button>
+       tab {{ item }}
+      </el-button>
 
-      <span @click="windowVisible = !windowVisible">toggle window </span>
+      <el-button @click="windowVisible = !windowVisible">toggle window </el-button>
+
+      <el-button @click="$router.push({name: '演示2'})">beforeRouteLeave animate</el-button>
     </div>
 
   </div>
@@ -49,7 +50,6 @@ export default {
       windowVisible: false
     };
   },
-
   methods: {
     tab(v) {
       this.curr = v;
@@ -59,6 +59,11 @@ export default {
   created() {
     this.$AnimatedGroup.enter("group1");
   },
+  beforeRouteLeave (to, from, next) {
+    this.$AnimatedGroup.leave().then(() => {
+      next()
+    })
+  }
 };
 </script>
 
@@ -74,11 +79,6 @@ export default {
 .currButton {
   color: red;
 }
-.button {
-  margin: 10px;
-  cursor: pointer;
-}
-
 
 .zoom-box {
   position: fixed;

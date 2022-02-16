@@ -66,16 +66,7 @@ export default {
         this.$emit("change", this.visibility);
       },
       immediate: true,
-    },
-    "PluginData.orderGroupName": {
-      handler(orderGroupName) {
-        if (orderGroupName === this.name) {
-          this.enter();
-        } else {
-          this.leave();
-        }
-      },
-    },
+    }
   },
   methods: {
     clearAnimateTimerHandle() {
@@ -88,63 +79,82 @@ export default {
       this.visibility = true;
       this.clearAnimateTimerHandle();
 
-      this.animateTimerHandle = setTimeout(
-        () => {
-          this.animateTimerHandle = null;
-          this.PluginData.currentGroupName = this.name;
-          this.$emit("groupEnterStart");
+      return new Promise((resolve, reject) => {
+        this.animateTimerHandle = setTimeout(() => {
+            this.animateTimerHandle = null;
+            this.PluginData.currentGroupName = this.name;
+            this.$emit("groupEnterStart");
 
-          Promise.all(
-            this.$children.filter(c => typeof c.enter === 'function').map((c, i) => c.enter(this.delay * i * 1000))
-          )
-            .then((values) => {
-              // console.log('进场完成', values)
-              this.$emit("groupEnterEnd");
-            })
-            .catch((err) => {
-              console.warn(err);
-            });
-        },
-        this.PluginData.currentGroupName ? this.groupDelay * 1000 : 0
-      );
+            Promise.all(
+              this.$children
+                .filter((c) => typeof c.enter === "function")
+                .map((c, i) => c.enter(this.delay * i * 1000))
+            )
+              .then((values) => {
+                // console.log(this.name, '进场完成', values)
+
+                if(this.PluginData.orderGroupName === this.name && this.name){
+                  // 进场结束清理 orderGroupName 变量
+                  this.PluginData.orderGroupName = undefined
+                }
+                this.$emit("groupEnterEnd");
+                resolve(this.visibility);
+              })
+              .catch((err) => {
+                console.warn(err);
+                reject(err);
+              });
+          }, this.PluginData.currentGroupName ? this.groupDelay * 1000 : 0 );
+      });
     },
     leave() {
       this.clearAnimateTimerHandle();
 
-      this.animateTimerHandle = setTimeout(() => {
-        this.animateTimerHandle = null;
-        this.$emit("groupLeaveStart");
+      return new Promise((resolve, reject) => {
+        this.animateTimerHandle = setTimeout(() => {
+          this.animateTimerHandle = null;
+          this.$emit("groupLeaveStart");
 
-        Promise.all(
-          this.$children.filter(c => typeof c.leave === 'function').map((c, i) => c.leave(this.delay * i * 1000))
-        )
-          .then((values) => {
-            // console.log("退场完成", values);
-            if(this.PluginData.orderGroupName === this.name && this.name){
-              this.PluginData.orderGroupName = undefined
-            }
-            this.visibility = false;
-            this.$emit("groupLeaveEnd");
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
-      }, 0);
+          Promise.all(
+            this.$children
+              .filter((c) => typeof c.leave === "function")
+              .map((c, i) => c.leave(this.delay * i * 1000))
+          )
+            .then((values) => {
+              console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
+              if (!(this.PluginData.orderGroupName === this.name && this.name)) {
+                // 排除 受控模式紧接着需要进场 的情况
+                this.visibility = false;
+              }
+              if(this.PluginData.currentGroupName === this.name && this.name){
+                // 退场结束清理 currentGroupName 变量
+                this.PluginData.currentGroupName = undefined
+              }
+              
+              this.$emit("groupLeaveEnd");
+              resolve(this.visibility);
+            })
+            .catch((err) => {
+              console.warn(err);
+              reject(err);
+            });
+        }, 0);
+      });
     },
   },
   created() {
     if (
-      this.PluginData.orderGroupName === this.name &&
-      this.value === undefined
+      this.name === undefined && this.value === undefined
     ) {
+      // 匿名 非受控 自动展示
       this.enter();
     }
   },
   mounted() {
-    this.index = registerGroup(this.name);
+    registerGroup(this);
   },
   destroyed() {
-    destroyGroup(this.name, this.index);
+    destroyGroup(this);
   },
 };
 </script>

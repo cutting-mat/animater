@@ -2,8 +2,8 @@
   <div class="flex-col visual" v-if="screen.width" :style="{width: screen.width+'px', height: screen.height+'px'}">
     <div class="header">
       头部logo(具名模式)
-      <el-button @click="$AnimatedGroup.enter('group-1')">show left1</el-button>
-      <el-button @click="$AnimatedGroup.enter('group-2')">show left2</el-button>
+      <el-button @click="callGroup('group-1')">show left1</el-button>
+      <el-button @click="callGroup('group-2')">show left2</el-button>
       <el-button @click="$AnimatedGroup.leave()">close</el-button>
     </div>
     <div class="flex-1 flex-row">
@@ -56,7 +56,15 @@ export default {
       groupVisible: false
     };
   },
-  methods: {},
+  methods: {
+    callGroup(groupName){
+      this.$AnimatedGroup.enter(groupName).then(() => {
+        console.log(groupName, '进场完成')
+      }).catch(err => {
+        console.warn(err)
+      })
+    }
+  },
   created() {
     const {width, height} = window.screen;
     this.screen = {
