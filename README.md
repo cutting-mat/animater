@@ -54,7 +54,7 @@ Vue.use(animater);
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle/value | 动画容器的进出场状态(作为子组件时不可用) | Boolean | -- | -- |
+| v-modle/value | 动画容器的进出场状态(仅独立使用生效，作为AnimatedGroup子组件时不生效) | Boolean | -- | -- |
 | enterClass | 进场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String |[Animate.css](https://animate.style/) | 'animate__fadeIn' |
 | leaveClass | 退场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String |[Animate.css](https://animate.style/) | 'animate__fadeOut' |
 | duration | 进出场动画时长，单位s | Number | -- | 0.5 |
@@ -75,3 +75,8 @@ Vue.use(animater);
 | ----  | ---- | ---- |
 | $AnimatedGroup.enter | 具名模式，指定具名动画组进场 | 动画组名称 name[String] |
 | $AnimatedGroup.leave | 具名模式，前台动画组退场 | -- |
+
+## Notice
+
+- AnimatedGroup & Animated 组合使用时，必须是直接上下级
+- 如果 AnimatedGroup 包含于单文件组件中，该组件必须同步加载

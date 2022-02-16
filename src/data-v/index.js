@@ -2,7 +2,6 @@ export default [{
     path: '/data-v',
     name: '数据可视化',
     component: (resolve) => require(['./views/Index.vue'], resolve),
-    redirect: '/data-v/visual',
     children: [{
         path: 'visual',
         name: '演示1',
@@ -27,6 +26,6 @@ export default [{
     }, {
         path: 'visual4',
         name: '演示4',
-        component: (resolve) => require(['./views/List.vue'], resolve),
+        component: (resolve) => require(['./views/visual4.vue'], resolve),
     }]
 }]

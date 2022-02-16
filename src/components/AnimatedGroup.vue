@@ -95,7 +95,7 @@ export default {
           this.$emit("groupEnterStart");
 
           Promise.all(
-            this.$children.map((c, i) => c.enter(this.delay * i * 1000))
+            this.$children.filter(c => typeof c.enter === 'function').map((c, i) => c.enter(this.delay * i * 1000))
           )
             .then((values) => {
               // console.log('进场完成', values)
@@ -116,7 +116,7 @@ export default {
         this.$emit("groupLeaveStart");
 
         Promise.all(
-          this.$children.map((c, i) => c.leave(this.delay * i * 1000))
+          this.$children.filter(c => typeof c.leave === 'function').map((c, i) => c.leave(this.delay * i * 1000))
         )
           .then((values) => {
             // console.log("退场完成", values);
