@@ -1,130 +1,130 @@
-English | [中文](README_CN.md)
+[English](README.md) | 中文
 
 # @cutting-mat/animater
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/animater.svg)](https://www.npmjs.com/package/@cutting-mat/animater) [![license](https://img.shields.io/github/license/cutting-mat/animater.svg)]()
 
-## Feature
+## 特性
 
-- \<animated\> component matching [animate. CSS](https://animate.style/) Achieve entry and exit animation
-- The combination of \<animated-group\> and \<animated\> can easily realize animation arrangement
-- Support anonymous mode, controlled mode and grouping mode to meet a variety of animation needs
-- With VueRoter's `beforerouteleave` hook, the page departure animation can also be realized
+- \<animated\> 组件搭配 [Animate.css](https://animate.style/) 实现进出场动画
+- \<animated-group\> 和 \<animated\> 组合，轻松实现动画编排
+- 支持匿名模式、受控模式、编组模式，满足多种动画需求
+- 配合 VueRouter 的 `beforeRouteLeave` 钩子还能实现页面离场动画
 
-## Install
+## 安装
 
 ``` bash
 npm i @cutting-mat/animater -S
 ```
 
-## Use
+## 使用
 
 ```js
 import animater from '@cutting-mat/animater';
 Vue.use(animater);
 ```
 
-### Anonymous Mode
+### 匿名模式
 
-The simplest application method is that the \<animated\> components in the anonymous \<animated-group\> will enter the site in turn
+最简单的应用方式，匿名 \<animated-group\> 里的 \<animated\> 组件将依次进场
 
 ``` html
 <animated-group>
     <animated>
-        Content 1
+        内容 1
     </animated>
     <animated>
-        Content 2
+        内容 2
     </animated>
     <animated>
-        Content 3
+        内容 3
     </animated>
 </animated-group>
 
 ```
 
-### Controlled Mode
+### 受控模式
 
-Both \<animated\> and \<animated-group\> support `v-mode / value` to drive the entry and exit status through data
+\<animated\> 和 \<animated-group\> 均支持 `v-modle / value`, 通过数据驱动进出场状态
 
 ``` html
 <animated-group v-modle="groupVisible">
     <animated>
-        Content 1
+        内容 1
     </animated>
     <animated>
-        Content 2
+        内容 2
     </animated>
     <animated>
-        Content 3
+        内容 3
     </animated>
 </animated-group>
 
 <animated v-modle="dialogVisible">
-    a dialog
+    一个弹窗
 </animated>
 
 ```
 
-### Marshalling Mode
+### 编组模式
 
-By naming \<animated-group\> components, they are divided into multiple animation groups, and the instance method is used to control the switching of each animation group
+通过为 \<animated-group\> 组件命名将他们分成多个动画组，用实例方法控制各动画组切换
 
 ``` html
-<!-- group 1 -->
+<!-- 组 1 -->
 <animated-group name="group1" class="group1-part1">
     <animated>
-        Content 1-1
+        内容 1-1
     </animated>
     <animated>
-        Content 1-2
+        内容 1-2
     </animated>
     <animated>
-        Content 1-3
+        内容 1-3
     </animated>
 </animated-group>
 
 <animated-group name="group1" class="group1-part2">
     <animated>
-        Content 1-4
+        内容 1-4
     </animated>
     <animated>
-        Content 1-5
+        内容 1-5
     </animated>
     <animated>
-        Content 1-6
+        内容 1-6
     </animated>
 </animated-group>
 
-<!-- group 2 -->
+<!-- 组 2 -->
 <animated-group name="group2" class="group2-part1">
     <animated>
-        Content 2-1
+        内容 2-1
     </animated>
     <animated>
-        Content 2-2
+        内容 2-2
     </animated>
     <animated>
-        Content 2-3
+        内容 2-3
     </animated>
 </animated-group>
 
 <animated-group name="group2" class="group2-part2">
     <animated>
-        Content 2-4
+        内容 2-4
     </animated>
     <animated>
-        Content 2-5
+        内容 2-5
     </animated>
     <animated>
-        Content 2-6
+        内容 2-6
     </animated>
 </animated-group>
 
 ```
 
 ``` js
-// Using Vue instance methods in components
+// 在组件中使用Vue实例方法
 this.$AnimatedGroup.enter('group1')
 
 ```
