@@ -131,52 +131,52 @@ this.$AnimatedGroup.enter('group1')
 
 ## \<AnimatedGroup\> Props
 
-| 属性  | 说明 | 类型 | 可选值 | 默认值 |
+| Props  | Description  | Type | Optional | Default |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle / value | 动画组的进出场状态(受控模式) | Boolean | -- | -- |
-| name | 动画组名称(编组模式) | String | -- | -- |
-| enterClass | 子AnimateBox元素的进场动画class | String | [Animate.css](https://animate.style/) | 'animate__zoomIn' |
-| leaveClass | 子AnimateBox元素的退场动画class | String | [Animate.css](https://animate.style/) | 'animate__zoomOut' |
-| delay | 子AnimateBox元素的进出场动画间隔，单位s | Number | -- | 0.3 |
-| groupDelay | 编组模式下，相邻动画组进场退场的动画间隔 | Number | -- | 0.8 |
+| v-modle / value | Entry and exit status of animation group | Boolean | -- | -- |
+| name | Animation group name | String | -- | -- |
+| enterClass | Approach animation class of \<Animated\> subcomponent | String | [Animate.css](https://animate.style/) | 'animate__zoomIn' |
+| leaveClass | Exit animation class of \<Animated\> subcomponents | String | [Animate.css](https://animate.style/) | 'animate__zoomOut' |
+| delay | Entry / exit time interval between \<Animated\> subcomponents, unit: S | Number | -- | 0.3 |
+| groupDelay | Entry / exit time interval between named animation groups, unit: S | Number | -- | 0.8 |
 
 ## \<AnimatedGroup\> Events
 
-| 事件名  | 说明 | 回调参数 |
+| Event Name  | Description | Callback Arguments |
 | ----  | ---- | ---- |
-| change | 进出场状态变化 | 当前进出场状态 visibility[Boolean] |
-| groupEnterStart | 进场动画开始 | -- |
-| groupEnterEnd | 进场动画结束 | -- |
-| groupLeaveStart | 退场动画开始 | -- |
-| groupLeaveEnd | 退场动画结束 | -- |
+| change | Entry and exit status change event | Current entry and exit status: visibility[Boolean] |
+| groupEnterStart | Entry animation start event | -- |
+| groupEnterEnd | Entry animation end event | -- |
+| groupLeaveStart | Exit animation start event | -- |
+| groupLeaveEnd | Exit animation end event | -- |
 
 ## \<Animated\> Props
 
-| 属性  | 说明 | 类型 | 可选值 | 默认值 |
+| Props  | Description  | Type | Optional | Default |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle / value | 动画容器的进出场状态(仅独立使用生效，作为AnimatedGroup子组件时不生效) | Boolean | -- | -- |
-| enterClass | 进场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String | [Animate.css](https://animate.style/) | 'animate__fadeIn' |
-| leaveClass | 退场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String | [Animate.css](https://animate.style/) | 'animate__fadeOut' |
-| duration | 进出场动画时长，单位s | Number | -- | 0.5 |
+| v-modle / value | Inbound and outbound status (invalid as a child of animatedgroup) | Boolean | -- | -- |
+| enterClass | Approach animation class (priority over parent component setting) | String | [Animate.css](https://animate.style/) | 'animate__fadeIn' |
+| leaveClass | Exit animation class (priority over parent component setting) | String | [Animate.css](https://animate.style/) | 'animate__fadeOut' |
+| duration | Animation duration, in S | Number | -- | 0.5 |
 
 ## \<Animated\> Events
 
-| 事件名  | 说明 | 回调参数 |
+| Event Name  | Description | Callback Arguments |
 | ----  | ---- | ---- |
-| change | 进出场状态变化 | 当前进出场状态 visibility[Boolean] |
-| enterStart | 进场动画开始 | -- |
-| enterEnd | 进场动画结束 | -- |
-| leaveStart | 退场动画开始 | -- |
-| leaveEnd | 退场动画结束 | -- |
+| change | Entry and exit status change event | Current entry and exit status: visibility[Boolean] |
+| enterStart | Entry animation start event | -- |
+| enterEnd | Entry animation end event | -- |
+| leaveStart | Exit animation start event | -- |
+| leaveEnd | Exit animation end event | -- |
 
 ## Instance Methods
 
-| 方法名  | 说明 | 参数 | 返回值 |
+| Method Name  | Description | Arguments | Return |
 | ----  | ---- | ---- | ---- |
-| $AnimatedGroup.enter | 指定动画组进场 | 动画组名称 name[String] | 进场动画 Promise |
-| $AnimatedGroup.leave | 前台动画组退场 | -- | 退场动画 Promise |
+| $AnimatedGroup.enter | Specify animation group approach | Animation group name: name[String] | Promise |
+| $AnimatedGroup.leave | Front desk animation team exit | -- | Promise |
 
 ## Notice
 
-- AnimatedGroup & Animated 组合使用时，必须是直接上下级
-- 如果 AnimatedGroup 包含于单文件组件中，该组件必须同步加载
+- When AnimatedGroup and Animated are used in combination, they must be direct superiors and subordinates
+- If AnimatedGroup is included in a single file component, the component must be loaded synchronously

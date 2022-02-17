@@ -133,50 +133,50 @@ this.$AnimatedGroup.enter('group1')
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle / value | 动画组的进出场状态(受控模式) | Boolean | -- | -- |
-| name | 动画组名称(编组模式) | String | -- | -- |
-| enterClass | 子AnimateBox元素的进场动画class | String | [Animate.css](https://animate.style/) | 'animate__zoomIn' |
-| leaveClass | 子AnimateBox元素的退场动画class | String | [Animate.css](https://animate.style/) | 'animate__zoomOut' |
-| delay | 子AnimateBox元素的进出场动画间隔，单位s | Number | -- | 0.3 |
-| groupDelay | 编组模式下，相邻动画组进场退场的动画间隔 | Number | -- | 0.8 |
+| v-modle / value | 动画组的进出场状态 | Boolean | -- | -- |
+| name | 动画组名称 | String | -- | -- |
+| enterClass | \<Animated\> 子组件的进场动画 class | String | [Animate.css](https://animate.style/) | 'animate__zoomIn' |
+| leaveClass | \<Animated\> 子组件的退场动画 class | String | [Animate.css](https://animate.style/) | 'animate__zoomOut' |
+| delay | \<Animated\> 子组件之间的进/出场时间间隔，单位s | Number | -- | 0.3 |
+| groupDelay | 具名动画组之间的进/出场时间间隔，单位s | Number | -- | 0.8 |
 
 ## \<AnimatedGroup\> Events
 
 | 事件名  | 说明 | 回调参数 |
 | ----  | ---- | ---- |
-| change | 进出场状态变化 | 当前进出场状态 visibility[Boolean] |
-| groupEnterStart | 进场动画开始 | -- |
-| groupEnterEnd | 进场动画结束 | -- |
-| groupLeaveStart | 退场动画开始 | -- |
-| groupLeaveEnd | 退场动画结束 | -- |
+| change | 进出场状态变化事件 | 当前进出场状态: visibility[Boolean] |
+| groupEnterStart | 进场动画开始事件 | -- |
+| groupEnterEnd | 进场动画结束事件 | -- |
+| groupLeaveStart | 退场动画开始事件 | -- |
+| groupLeaveEnd | 退场动画结束事件 | -- |
 
 ## \<Animated\> Props
 
 | 属性  | 说明 | 类型 | 可选值 | 默认值 |
 | ----  | ---- | ---- | ---- | ---- |
-| v-modle / value | 动画容器的进出场状态(仅独立使用生效，作为AnimatedGroup子组件时不生效) | Boolean | -- | -- |
-| enterClass | 进场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String | [Animate.css](https://animate.style/) | 'animate__fadeIn' |
-| leaveClass | 退场动画class，作为子组件时优先级高于AnimateGroup同名属性 | String | [Animate.css](https://animate.style/) | 'animate__fadeOut' |
-| duration | 进出场动画时长，单位s | Number | -- | 0.5 |
+| v-modle / value | 进出场状态 (作为AnimatedGroup子组件时无效) | Boolean | -- | -- |
+| enterClass | 进场动画 class (优先级高于父组件设置) | String | [Animate.css](https://animate.style/) | 'animate__fadeIn' |
+| leaveClass | 退场动画 class (优先级高于父组件设置) | String | [Animate.css](https://animate.style/) | 'animate__fadeOut' |
+| duration | 动画时长，单位s | Number | -- | 0.5 |
 
 ## \<Animated\> Events
 
 | 事件名  | 说明 | 回调参数 |
 | ----  | ---- | ---- |
-| change | 进出场状态变化 | 当前进出场状态 visibility[Boolean] |
-| enterStart | 进场动画开始 | -- |
-| enterEnd | 进场动画结束 | -- |
-| leaveStart | 退场动画开始 | -- |
-| leaveEnd | 退场动画结束 | -- |
+| change | 进出场状态变化事件 | 当前进出场状态: visibility[Boolean] |
+| enterStart | 进场动画开始事件 | -- |
+| enterEnd | 进场动画结束事件 | -- |
+| leaveStart | 退场动画开始事件 | -- |
+| leaveEnd | 退场动画结束事件 | -- |
 
-## Instance Methods
+## 实例方法
 
 | 方法名  | 说明 | 参数 | 返回值 |
 | ----  | ---- | ---- | ---- |
-| $AnimatedGroup.enter | 指定动画组进场 | 动画组名称 name[String] | 进场动画 Promise |
-| $AnimatedGroup.leave | 前台动画组退场 | -- | 退场动画 Promise |
+| $AnimatedGroup.enter | 指定动画组进场 | 动画组名称: name[String] | Promise |
+| $AnimatedGroup.leave | 前台动画组退场 | -- | Promise |
 
-## Notice
+## 注意
 
-- AnimatedGroup & Animated 组合使用时，必须是直接上下级
+- AnimatedGroup 与 Animated 组合使用时，必须是直接上下级
 - 如果 AnimatedGroup 包含于单文件组件中，该组件必须同步加载
