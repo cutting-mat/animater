@@ -26,20 +26,22 @@ export default {
       type: String,
       required: false,
       default() {
-        return this.$parent.$props.enterClass || "animate__fadeIn";
+        return this.$parent.$props && this.$parent.$props.enterClass || "animate__fadeIn";
       },
     },
     leaveClass: {
       type: String,
       required: false,
       default() {
-        return this.$parent.$props.leaveClass || "animate__fadeOut";
+        return this.$parent.$props && this.$parent.$props.leaveClass || "animate__fadeOut";
       },
     },
     duration: {
       type: Number,
       required: false,
-      default: 0.5,
+      default() {
+        return this.$parent.$props && this.$parent.$props.duration || 0.5;
+      }
     },
   },
   data() {

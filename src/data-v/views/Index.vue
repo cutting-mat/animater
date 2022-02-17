@@ -1,26 +1,54 @@
 <template>
-<div>
-  <HomePage v-if="$route.path == '/data-v/'" />
-  <router-view v-else />
-</div>
-  
+  <div
+    class="flex-col"
+    v-if="screen.width"
+    :style="{ width: screen.width + 'px', height: screen.height + 'px' }"
+  >
+    <myHeader />
+
+    <HomePage class="flex-1" v-if="$route.path == '/data-v/'" />
+    <router-view v-else class="flex-1 visual" />
+  </div>
 </template>
 
 <script>
 //import { util } from "@/core";
+import myHeader from "../components/header";
 
 export default {
   components: {
-    HomePage: () => import('../components/HomePage')
+    myHeader,
+    HomePage: () => import("../components/HomePage"),
   },
   data() {
-    return {};
+    return {
+      screen: {},
+    };
   },
   methods: {},
-  created() {},
+  created() {
+    const { width, height } = window.screen;
+    this.screen = {
+      width,
+      height,
+    };
+  },
 };
 </script>
 
 <style scoped>
 @import url(../assets/style.css);
+.visual {
+  background: rgb(21, 21, 21);
+  color: #fff;
+  padding-top: 20px;
+}
+.visual >>> .visual-block {
+  background: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+}
 </style>

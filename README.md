@@ -137,6 +137,7 @@ this.$AnimatedGroup.enter('group1')
 | name | Animation group name | String | -- | -- |
 | enterClass | Approach animation class of \<Animated\> subcomponent | String | [Animate.css](https://animate.style/) | 'animate__zoomIn' |
 | leaveClass | Exit animation class of \<Animated\> subcomponents | String | [Animate.css](https://animate.style/) | 'animate__zoomOut' |
+| duration | Animation duration of \<Animated\> subcomponents, unit: S | Number | -- | 0.5 |
 | delay | Entry / exit time interval between \<Animated\> subcomponents, unit: S | Number | -- | 0.3 |
 | groupDelay | Entry / exit time interval between named animation groups, unit: S | Number | -- | 0.8 |
 
@@ -157,7 +158,7 @@ this.$AnimatedGroup.enter('group1')
 | v-modle / value | Inbound and outbound status (invalid as a child of animatedgroup) | Boolean | -- | -- |
 | enterClass | Approach animation class (priority over parent component setting) | String | [Animate.css](https://animate.style/) | 'animate__fadeIn' |
 | leaveClass | Exit animation class (priority over parent component setting) | String | [Animate.css](https://animate.style/) | 'animate__fadeOut' |
-| duration | Animation duration, in S | Number | -- | 0.5 |
+| duration | Animation duration, in S (priority over parent component setting) | Number | -- | 0.5 |
 
 ## \<Animated\> Events
 

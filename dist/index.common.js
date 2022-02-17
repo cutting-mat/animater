@@ -616,7 +616,7 @@ if (typeof window !== 'undefined') {
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Animated.vue?vue&type=template&id=ff59d588&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Animated.vue?vue&type=template&id=90071210&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.asSubassembly || _vm.visibility),expression:"asSubassembly || visibility"}],class:_vm.animateClass,style:({
     'animation-duration': _vm.duration + 's',
     visibility: _vm.visibility ? 'visible' : 'hidden',
@@ -624,7 +624,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Animated.vue?vue&type=template&id=ff59d588&
+// CONCATENATED MODULE: ./src/components/Animated.vue?vue&type=template&id=90071210&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Animated.vue?vue&type=script&lang=js&
 //
@@ -655,20 +655,22 @@ var staticRenderFns = []
       type: String,
       required: false,
       default() {
-        return this.$parent.$props.enterClass || "animate__fadeIn";
+        return this.$parent.$props && this.$parent.$props.enterClass || "animate__fadeIn";
       },
     },
     leaveClass: {
       type: String,
       required: false,
       default() {
-        return this.$parent.$props.leaveClass || "animate__fadeOut";
+        return this.$parent.$props && this.$parent.$props.leaveClass || "animate__fadeOut";
       },
     },
     duration: {
       type: Number,
       required: false,
-      default: 0.5,
+      default() {
+        return this.$parent.$props && this.$parent.$props.duration || 0.5;
+      }
     },
   },
   data() {
@@ -895,12 +897,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Animated = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=131c05ad&
-var AnimatedGroupvue_type_template_id_131c05ad_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
-var AnimatedGroupvue_type_template_id_131c05ad_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=d5793f86&
+var AnimatedGroupvue_type_template_id_d5793f86_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
+var AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=131c05ad&
+// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=d5793f86&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=script&lang=js&
 //
@@ -935,6 +937,11 @@ var AnimatedGroupvue_type_template_id_131c05ad_staticRenderFns = []
       type: String,
       required: false,
       default: "animate__zoomOut",
+    },
+    duration: {
+      type: Number,
+      required: false,
+      default: 0.5
     },
     delay: {
       type: Number,
@@ -987,7 +994,7 @@ var AnimatedGroupvue_type_template_id_131c05ad_staticRenderFns = []
       return new Promise((resolve, reject) => {
         this.animateTimerHandle = setTimeout(() => {
             this.animateTimerHandle = null;
-            this.PluginData.currentGroupName = this.name;
+            this.PluginData.currentGroupName = this.name || 'anonymous';
             this.$emit("groupEnterStart");
 
             Promise.all(
@@ -1026,7 +1033,7 @@ var AnimatedGroupvue_type_template_id_131c05ad_staticRenderFns = []
               .map((c, i) => c.leave(this.delay * i * 1000))
           )
             .then((values) => {
-              console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
+              // console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
               if (!(this.PluginData.orderGroupName === this.name && this.name)) {
                 // 排除 受控模式紧接着需要进场 的情况
                 this.visibility = false;
@@ -1075,8 +1082,8 @@ var AnimatedGroupvue_type_template_id_131c05ad_staticRenderFns = []
 
 var AnimatedGroup_component = normalizeComponent(
   components_AnimatedGroupvue_type_script_lang_js_,
-  AnimatedGroupvue_type_template_id_131c05ad_render,
-  AnimatedGroupvue_type_template_id_131c05ad_staticRenderFns,
+  AnimatedGroupvue_type_template_id_d5793f86_render,
+  AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns,
   false,
   null,
   null,
@@ -1104,7 +1111,6 @@ const PluginData = external_commonjs_vue_commonjs2_vue_root_Vue_default.a.observ
 // 组注册
 const registerGroup = function (vm) {
     const groupName = vm.name || 'anonymous';
-    const index = vm._uid;
 
     if (!PluginData.groups.size) {
         PluginData.currentGroupName = undefined

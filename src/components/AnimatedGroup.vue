@@ -31,6 +31,11 @@ export default {
       required: false,
       default: "animate__zoomOut",
     },
+    duration: {
+      type: Number,
+      required: false,
+      default: 0.5
+    },
     delay: {
       type: Number,
       required: false,
@@ -82,7 +87,7 @@ export default {
       return new Promise((resolve, reject) => {
         this.animateTimerHandle = setTimeout(() => {
             this.animateTimerHandle = null;
-            this.PluginData.currentGroupName = this.name;
+            this.PluginData.currentGroupName = this.name || 'anonymous';
             this.$emit("groupEnterStart");
 
             Promise.all(
@@ -121,7 +126,7 @@ export default {
               .map((c, i) => c.leave(this.delay * i * 1000))
           )
             .then((values) => {
-              console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
+              // console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
               if (!(this.PluginData.orderGroupName === this.name && this.name)) {
                 // 排除 受控模式紧接着需要进场 的情况
                 this.visibility = false;

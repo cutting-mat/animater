@@ -1,94 +1,71 @@
 <template>
-  <div id="app">
-    
-    <group1 />
-    <group2 />
-
-    <!-- dialog -->
-    <animated
-      class="zoom-box"
-      v-model="windowVisible"
-      enterClass="animate__zoomIn"
-      leaveClass="animate__zoomOut"
-    >
-      window
-    </animated>
-
-    <!-- control -->
-    <div class="center">
-      <el-button
-        :class="curr == item ? 'currButton' : ''"
-        v-for="item in buttonList"
-        :key="item"
-        @click="tab(item)"
+  <div class="flex-col">
+    <div class="flex-1 flex-row">
+      <animated-group
+        class="left flex-col"
+        enterClass="animate__fadeInLeft"
+        leaveClass="animate__fadeOutLeft"
       >
-       tab {{ item }}
-      </el-button>
+        <animated class="flex-1 visual-block"> left 1 </animated>
+        <animated class="flex-1 visual-block"> left 2 </animated>
+        <animated class="flex-1 visual-block"> left 3 </animated>
+      </animated-group>
 
-      <el-button @click="windowVisible = !windowVisible">toggle window </el-button>
+      <animated-group class="flex-1 flex-col" :duration="1">
+        <animated
+          class="visual-block flex-1"
+          enterClass="animate__zoomIn"
+          leaveClass="animate__zoomOut"
+        >
+          <el-button @click="toRandomPage">页面离场</el-button>
+        </animated>
+      </animated-group>
 
-      <el-button @click="$router.push({name: '演示2'})">beforeRouteLeave animate</el-button>
+      <animated-group
+        class="right flex-col"
+        enterClass="animate__fadeInRight"
+        leaveClass="animate__fadeOutRight"
+      >
+        <animated class="flex-1 visual-block"> right 1 </animated>
+        <animated class="flex-1 visual-block"> right 2 </animated>
+        <animated class="flex-1 visual-block"> right 3 </animated>
+      </animated-group>
     </div>
-
   </div>
 </template>
 
 <script>
-// import Vue from "vue";
-import group1 from '../components/group1.vue';
-import group2 from '../components/group2.vue';
-
 export default {
-  components: {
-    group1,
-    group2
-  },
   data() {
-    return {
-      curr: 1,
-      buttonList: [1, 2],
-      windowVisible: false
-    };
+    return {};
   },
   methods: {
-    tab(v) {
-      this.curr = v;
-      this.$AnimatedGroup.enter(`group${v}`);
+    toRandomPage() {
+      const routeNum = [2, 3].sort((_) => Math.random() - 0.5)[0];
+      this.$router.push({
+        name: `演示${routeNum}`,
+      });
     },
   },
-  created() {
-    this.$AnimatedGroup.enter("group1");
-  },
-  beforeRouteLeave (to, from, next) {
+  created() {},
+  beforeRouteLeave(to, from, next) {
     this.$AnimatedGroup.leave().then(() => {
-      next()
-    })
-  }
+      next();
+    });
+  },
 };
 </script>
 
 <style scoped>
-
-.center {
-  position: fixed;
-  left: 50%;
-  bottom: 200px;
-  display: flex;
-  transform: translateX(-50%);
+.left,
+.right {
+  width: 500px;
+  max-width: 40%;
 }
-.currButton {
-  color: red;
+.left {
+  margin-right: 20px;
 }
-
-.zoom-box {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 300px;
-  height: 300px;
-  background-color: pink;
+.right {
+  margin-left: 20px;
 }
 </style>

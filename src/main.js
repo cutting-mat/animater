@@ -8,8 +8,9 @@ Vue.use(ElementUI);
 // 全局样式
 import '@/assets/global.css';
 
-import customPlugin from './index';
-Vue.use(customPlugin);
+// 安装 animater
+import animater from "./index"
+Vue.use(animater)
 
 import router from './router';
 import App from './App.vue'

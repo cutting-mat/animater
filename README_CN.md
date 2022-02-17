@@ -137,6 +137,7 @@ this.$AnimatedGroup.enter('group1')
 | name | 动画组名称 | String | -- | -- |
 | enterClass | \<Animated\> 子组件的进场动画 class | String | [Animate.css](https://animate.style/) | 'animate__zoomIn' |
 | leaveClass | \<Animated\> 子组件的退场动画 class | String | [Animate.css](https://animate.style/) | 'animate__zoomOut' |
+| duration | \<Animated\> 子组件动画时长，单位s | Number | -- | 0.5 |
 | delay | \<Animated\> 子组件之间的进/出场时间间隔，单位s | Number | -- | 0.3 |
 | groupDelay | 具名动画组之间的进/出场时间间隔，单位s | Number | -- | 0.8 |
 
@@ -157,7 +158,7 @@ this.$AnimatedGroup.enter('group1')
 | v-modle / value | 进出场状态 (作为AnimatedGroup子组件时无效) | Boolean | -- | -- |
 | enterClass | 进场动画 class (优先级高于父组件设置) | String | [Animate.css](https://animate.style/) | 'animate__fadeIn' |
 | leaveClass | 退场动画 class (优先级高于父组件设置) | String | [Animate.css](https://animate.style/) | 'animate__fadeOut' |
-| duration | 动画时长，单位s | Number | -- | 0.5 |
+| duration | 动画时长，单位s  (优先级高于父组件设置) | Number | -- | 0.5 |
 
 ## \<Animated\> Events
 

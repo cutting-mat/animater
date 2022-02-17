@@ -13,7 +13,6 @@ export const PluginData = Vue.observable({
 // 组注册
 export const registerGroup = function (vm) {
     const groupName = vm.name || 'anonymous';
-    const index = vm._uid;
 
     if (!PluginData.groups.size) {
         PluginData.currentGroupName = undefined
