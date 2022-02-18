@@ -26,7 +26,7 @@ Vue.use(animater);
 
 ### Anonymous Mode
 
-The simplest application method is that the \<animated\> components in the anonymous \<animated-group\> will enter the site in turn
+The simplest way to apply, anonymous animation group elements enter the field in turn
 
 ``` html
 <animated-group>
@@ -175,7 +175,7 @@ this.$AnimatedGroup.enter('group1')
 | Method Name  | Description | Arguments | Return |
 | ----  | ---- | ---- | ---- |
 | $AnimatedGroup.enter | Specify animation group approach | Animation group name: name[String] | Promise |
-| $AnimatedGroup.leave | Front desk animation team exit | -- | Promise |
+| $AnimatedGroup.leave | Front desk animation team exit | Animation group name: name[String] Not required, no parameters will close all animation groups currently being displayed | Promise |
 
 ## Notice
 

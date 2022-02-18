@@ -6,7 +6,7 @@
   >
     <myHeader />
 
-    <HomePage class="flex-1" v-if="$route.path == '/data-v/'" />
+    <HomePage class="flex-1 scrollbar" v-if="$route.path == '/data-v/'" />
     <router-view v-else class="flex-1 visual" />
   </div>
 </template>
@@ -27,10 +27,11 @@ export default {
   },
   methods: {},
   created() {
-    const { width, height } = window.screen;
+    // const { width, height } = window.screen;
+    const {innerWidth, innerHeight} = window;
     this.screen = {
-      width,
-      height,
+      width: innerWidth,
+      height: innerHeight,
     };
   },
 };
@@ -38,6 +39,7 @@ export default {
 
 <style scoped>
 @import url(../assets/style.css);
+
 .visual {
   background: rgb(21, 21, 21);
   color: #fff;

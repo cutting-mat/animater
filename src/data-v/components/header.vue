@@ -4,6 +4,7 @@
     <div class="center flex-1">
       <slot>
         {{$route.meta && $route.meta.title}}
+        <a v-if="$route.meta && $route.meta.link" :href="$route.meta.link" target="_blank">[ 查看源码 ]</a>
       </slot>
     </div>
     <el-dropdown @command="handleCommand" class="menu">

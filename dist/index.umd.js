@@ -906,12 +906,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Animated = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=d5793f86&
-var AnimatedGroupvue_type_template_id_d5793f86_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
-var AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=ec63de36&
+var AnimatedGroupvue_type_template_id_ec63de36_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
+var AnimatedGroupvue_type_template_id_ec63de36_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=d5793f86&
+// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=ec63de36&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=script&lang=js&
 //
@@ -936,6 +936,7 @@ var AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns = []
     name: {
       type: String,
       required: false,
+      default: 'anonymous'
     },
     enterClass: {
       type: String,
@@ -1043,15 +1044,14 @@ var AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns = []
           )
             .then((values) => {
               // console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
-              if (!(this.PluginData.orderGroupName === this.name && this.name)) {
+              if (!(this.PluginData.orderGroupName === this.name && this.name!=='anonymous')) {
                 // 排除 受控模式紧接着需要进场 的情况
                 this.visibility = false;
               }
-              if(this.PluginData.currentGroupName === this.name && this.name){
+              if(this.PluginData.currentGroupName === this.name){
                 // 退场结束清理 currentGroupName 变量
                 this.PluginData.currentGroupName = undefined
               }
-              
               this.$emit("groupLeaveEnd");
               resolve(this.visibility);
             })
@@ -1065,7 +1065,7 @@ var AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns = []
   },
   created() {
     if (
-      this.name === undefined && this.value === undefined
+      this.name === 'anonymous' && this.value === undefined
     ) {
       // 匿名 非受控 自动展示
       this.enter();
@@ -1091,8 +1091,8 @@ var AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns = []
 
 var AnimatedGroup_component = normalizeComponent(
   components_AnimatedGroupvue_type_script_lang_js_,
-  AnimatedGroupvue_type_template_id_d5793f86_render,
-  AnimatedGroupvue_type_template_id_d5793f86_staticRenderFns,
+  AnimatedGroupvue_type_template_id_ec63de36_render,
+  AnimatedGroupvue_type_template_id_ec63de36_staticRenderFns,
   false,
   null,
   null,
@@ -1147,48 +1147,72 @@ const destroyGroup = function (vm) {
 
 /* harmony default export */ var src_0 = ({
     install: function (Vue) {
-
         Vue.prototype.$AnimatedGroup = {
             enter: function (groupName) {
                 return new Promise((resolve, reject) => {
-                    Vue.nextTick(() => {
-                        if (groupName && PluginData.groups.has(groupName)) {
-                            if (PluginData.currentGroupName === groupName) {
-                                // 目标正在前台
-                                resolve(`${groupName} already on show`)
-                            } else {
-                                PluginData.orderGroupName = groupName;
-                                // 前台退场
-                                if (PluginData.currentGroupName) {
-                                    PluginData.groups.get(PluginData.currentGroupName).forEach(vm => {
-                                        vm.leave()
+                    if (groupName) {
+                        Vue.nextTick(() => {
+                            if (PluginData.groups.has(groupName)) {
+                                if (PluginData.currentGroupName === groupName) {
+                                    // 目标正在前台
+                                    resolve(`${groupName} already on the stage`)
+                                } else {
+                                    PluginData.orderGroupName = groupName;
+                                    // 前台退场
+                                    if (PluginData.currentGroupName) {
+                                        PluginData.groups.get(PluginData.currentGroupName).forEach(vm => {
+                                            vm.leave()
+                                        })
+                                    }
+                                    // 开始进场
+                                    PluginData.groups.get(groupName).forEach(vm => {
+                                        resolve(vm.enter())
                                     })
-                                    
-                                } 
-                                // 开始进场
-                                PluginData.groups.get(groupName).forEach(vm => {
-                                    resolve(vm.enter())
-                                })
+                                }
+
+                            } else {
+                                reject(`$AnimatedGroup.enter('${groupName}'): groupName unregistered`)
                             }
-
-                        } else {
-                            reject(`groupName "${groupName}" 未注册`)
-                        }
-                    })
-                })
-            },
-            leave: function () {
-                PluginData.orderGroupName = undefined;
-
-                return new Promise((resolve, reject) => {
-                    if (PluginData.currentGroupName) {
-                        PluginData.groups.get(PluginData.currentGroupName).forEach(vm => {
-                            resolve(vm.leave())
                         })
                     } else {
-                        resolve('当前没有正在展示的 group')
+                        reject(`$AnimatedGroup.enter(groupName): Missing param`)
                     }
                 })
+            },
+            leave: function (groupName) {
+                return new Promise((resolve, reject) => {
+                    if (groupName) {
+                        // 指定 name
+                        if(PluginData.groups.get(groupName)){
+                            if (groupName === PluginData.orderGroupName || (groupName === PluginData.currentGroupName)) {
+                                PluginData.groups.get(groupName).forEach(vm => {
+                                    resolve(vm.leave())
+                                })
+                            } else {
+                                resolve(`$AnimatedGroup.leave('${groupName}'): The group is not on the stage`)
+                            }
+                        }else{
+                            reject(`$AnimatedGroup.leave('${groupName}'): groupName unregistered`)
+                        }
+                        
+                    } else {
+                        // 关闭所有正在展示的group
+                        let grousVm = []
+                        for(let set of PluginData.groups.values()){
+                            grousVm.push(Array.from(set))
+                        }
+                        const visibleGroup = grousVm.flat().filter(vm => vm.visibility);
+
+                        if(visibleGroup.length){
+                            visibleGroup.forEach(vm => {
+                                resolve(vm.leave())
+                            })
+                        }else{
+                            resolve(`$AnimatedGroup.leave(): No group is not on the stage`)
+                        }
+                    }
+                })
+
             }
         }
 

@@ -1,24 +1,30 @@
 <template>
-  <div class="logo" v-if="refreshMark">
-    <animated-group
-      v-for="(groupitem, groupindex) in list"
-      :key="groupindex"
-      v-model="groupVisible"
-      class="side flex-col"
-      :class="[`side_${groupindex}`]"
-      :enterClass="`${enterClass} ${enterClass}${groupindex ? 'Right' : 'Left'}`"
-      :leaveClass="`${leaveClass} ${leaveClass}${groupindex ? 'Right' : 'Left'}`"
-      :duration="duration"
-      :delay="delay"
-      :groupDelay="groupDelay"
-    >
-      <animated
-        v-for="(item, index) in groupitem"
-        :key="index"
-        class="flex-1 block"
-        :class="item.animateClass"
-      ></animated>
-    </animated-group>
+  <div class="logo" :class="logoClass">
+    <div class="c" v-if="refreshMark">
+      <animated-group
+        v-for="(groupitem, groupindex) in list"
+        :key="groupindex"
+        v-model="groupVisible"
+        class="side flex-col"
+        :class="[`side_${groupindex}`]"
+        :enterClass="`${enterClass} ${enterClass}${
+          groupindex ? 'Right' : 'Left'
+        }`"
+        :leaveClass="`${leaveClass} ${leaveClass}${
+          groupindex ? 'Right' : 'Left'
+        }`"
+        :duration="duration"
+        :delay="delay"
+        :groupDelay="groupDelay"
+      >
+        <animated
+          v-for="(item, index) in groupitem"
+          :key="index"
+          class="flex-1 block"
+          :class="item.animateClass"
+        ></animated>
+      </animated-group>
+    </div>
   </div>
 </template>
 
@@ -38,6 +44,7 @@ export default {
       delay: 0.3,
       groupDelay: 0.8,
       refreshMark: true,
+      logoClass: "",
       list: [
         [
           {
@@ -86,9 +93,11 @@ export default {
           if (this.enterClass === "animate__zoomIn") {
             this.enterClass = "animate__fadeIn";
             this.leaveClass = "animate__fadeOut";
+            this.logoClass = "logo2";
           } else {
             this.enterClass = "animate__zoomIn";
             this.leaveClass = "animate__zoomOut";
+            this.logoClass = "";
           }
           this.refreshMark = false;
           this.$nextTick(() => {
@@ -114,31 +123,43 @@ export default {
 <style scoped>
 /* TODO 背景色和色块颜色渐变动画 */
 .logo {
-  position: relative;
-  width: 300px;
+  width: 200px;
   height: 200px;
   margin: 40px auto;
-  background: rgba(9, 113, 241, .3);
-  border-radius: 4px;
+  background: rgba(9, 113, 241, 0.3);
+  border-radius: 8px;
+  transition: background-color ease 0.3s;
+}
+.c {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 .side {
   position: absolute;
   top: 0;
-  width: 35%;
+  width: 40%;
   height: 100%;
   box-sizing: border-box;
-  padding-top: 8px;
+  padding-top: 7%;
 }
 .side_0 {
-  left: 8px;
+  left: 7%;
 }
 .side_1 {
-  right: 8px;
+  right: 7%;
 }
 
 .block {
-  background: #4abf8a;
-  margin-bottom: 8px;
+  background: rgba(9, 113, 241, 0.6);
+  margin-bottom: 14%;
   border-radius: 4px;
+}
+
+.logo2 {
+  background: #dedede;
+}
+.logo2 .block {
+  background: #fff;
 }
 </style>

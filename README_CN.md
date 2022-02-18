@@ -26,7 +26,7 @@ Vue.use(animater);
 
 ### 匿名模式
 
-最简单的应用方式，匿名 \<animated-group\> 里的 \<animated\> 组件将依次进场
+最简单的应用方式，匿名动画组元素依次进场
 
 ``` html
 <animated-group>
@@ -175,7 +175,7 @@ this.$AnimatedGroup.enter('group1')
 | 方法名  | 说明 | 参数 | 返回值 |
 | ----  | ---- | ---- | ---- |
 | $AnimatedGroup.enter | 指定动画组进场 | 动画组名称: name[String] | Promise |
-| $AnimatedGroup.leave | 前台动画组退场 | -- | Promise |
+| $AnimatedGroup.leave | 前台动画组退场 | 动画组名称: name[String]，非必须，无参数将关闭所有当前正在展示的动画组 | Promise |
 
 ## 注意
 

@@ -51,7 +51,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     this.$AnimatedGroup.leave().then(() => {
       next();
-    });
+    })
   },
 };
 </script>

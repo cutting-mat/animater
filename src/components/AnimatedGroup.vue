@@ -20,6 +20,7 @@ export default {
     name: {
       type: String,
       required: false,
+      default: 'anonymous'
     },
     enterClass: {
       type: String,
@@ -127,15 +128,14 @@ export default {
           )
             .then((values) => {
               // console.log(this.name, "退场完成", values, 'orderGroupName=', this.PluginData.orderGroupName);
-              if (!(this.PluginData.orderGroupName === this.name && this.name)) {
+              if (!(this.PluginData.orderGroupName === this.name && this.name!=='anonymous')) {
                 // 排除 受控模式紧接着需要进场 的情况
                 this.visibility = false;
               }
-              if(this.PluginData.currentGroupName === this.name && this.name){
+              if(this.PluginData.currentGroupName === this.name){
                 // 退场结束清理 currentGroupName 变量
                 this.PluginData.currentGroupName = undefined
               }
-              
               this.$emit("groupLeaveEnd");
               resolve(this.visibility);
             })
@@ -149,7 +149,7 @@ export default {
   },
   created() {
     if (
-      this.name === undefined && this.value === undefined
+      this.name === 'anonymous' && this.value === undefined
     ) {
       // 匿名 非受控 自动展示
       this.enter();
