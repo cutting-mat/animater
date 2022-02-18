@@ -1,6 +1,6 @@
 <template>
   <div class="header flex-row align-center">
-    <h1 class="logo" @click="$router.push('/data-v/')">Animater</h1>
+    <h1 class="logo" @click="$router.push('/')">Animater</h1>
     <div class="center flex-1">
       <slot>
         {{$route.meta && $route.meta.title}}

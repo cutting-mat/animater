@@ -6,7 +6,7 @@
   >
     <myHeader />
 
-    <HomePage class="flex-1 scrollbar" v-if="$route.path == '/data-v/'" />
+    <HomePage class="flex-1 scrollbar" v-if="$route.path == '/'" />
     <router-view v-else class="flex-1 visual" />
   </div>
 </template>

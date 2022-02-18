@@ -1,7 +1,10 @@
 export default [{
-    path: '/data-v',
-    name: '数据可视化',
+    path: '/',
+    name: '首页',
     component: (resolve) => require(['./views/Index.vue'], resolve),
+    meta: {
+        title: 'Animater: 动画场景编排组件'
+    },
     children: [{
         path: 'visual',
         name: '演示1',
