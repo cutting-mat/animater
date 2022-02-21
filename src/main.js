@@ -6,10 +6,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 // 全局样式
-import '@/assets/global.css';
+import '@/test/assets/global.css';
 
 // 安装 animater
-import animater from "./index"
+import animater from "./animater"
 Vue.use(animater)
 
 import router from './router';

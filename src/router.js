@@ -3,7 +3,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // 加载所有模块路由
-import dataV from './data-v'
+import dataV from './test'
 
 // 路由实例
 const route = new Router({

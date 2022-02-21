@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { PluginData, registerGroup, destroyGroup } from "../index";
+import { PluginData, registerGroup, destroyGroup } from "../animater";
 
 export default {
   name: `AnimatedGroup`,

@@ -38,7 +38,6 @@ export default {
 </script>
 
 <style scoped>
-@import url(../assets/style.css);
 
 .visual {
   background: rgb(21, 21, 21);

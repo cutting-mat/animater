@@ -897,12 +897,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Animated = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=ec63de36&
-var AnimatedGroupvue_type_template_id_ec63de36_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
-var AnimatedGroupvue_type_template_id_ec63de36_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"db4bbbb6-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=template&id=0182116a&
+var AnimatedGroupvue_type_template_id_0182116a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.visibility),expression:"visibility"}]},[_vm._t("default")],2)}
+var AnimatedGroupvue_type_template_id_0182116a_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=ec63de36&
+// CONCATENATED MODULE: ./src/components/AnimatedGroup.vue?vue&type=template&id=0182116a&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/AnimatedGroup.vue?vue&type=script&lang=js&
 //
@@ -1082,8 +1082,8 @@ var AnimatedGroupvue_type_template_id_ec63de36_staticRenderFns = []
 
 var AnimatedGroup_component = normalizeComponent(
   components_AnimatedGroupvue_type_script_lang_js_,
-  AnimatedGroupvue_type_template_id_ec63de36_render,
-  AnimatedGroupvue_type_template_id_ec63de36_staticRenderFns,
+  AnimatedGroupvue_type_template_id_0182116a_render,
+  AnimatedGroupvue_type_template_id_0182116a_staticRenderFns,
   false,
   null,
   null,
@@ -1095,7 +1095,7 @@ var AnimatedGroup_component = normalizeComponent(
 // EXTERNAL MODULE: ./node_modules/animate.css/animate.css
 var animate = __webpack_require__("77ed");
 
-// CONCATENATED MODULE: ./src/index.js
+// CONCATENATED MODULE: ./src/animater.js
 
 
 
@@ -1136,7 +1136,7 @@ const destroyGroup = function (vm) {
     }
 }
 
-/* harmony default export */ var src_0 = ({
+/* harmony default export */ var animater = ({
     install: function (Vue) {
         Vue.prototype.$AnimatedGroup = {
             enter: function (groupName) {
@@ -1215,7 +1215,7 @@ const destroyGroup = function (vm) {
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_0);
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (animater);
 
 
 
