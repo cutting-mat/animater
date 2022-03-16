@@ -28,7 +28,7 @@
       </div>
 
       <div class="flex-1 center">
-        <el-form label-width="200px" class="myForm">
+        <el-form label-width="180px" class="myForm">
           <el-form-item label="动画时长(s)">
             <el-slider
               v-model="duration"
@@ -56,10 +56,10 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="callGroup('group-1')">
-              group-1 进场
+              group1 进场
             </el-button>
             <el-button type="primary" @click="callGroup('group-2')">
-              group-2 进场
+              group2 进场
             </el-button>
           </el-form-item>
         </el-form>
@@ -140,7 +140,7 @@ export default {
 .right {
   position: relative;
   width: 500px;
-  max-width: 40%;
+  max-width: 30%;
 }
 .left {
   margin-right: 20px;

@@ -60,7 +60,7 @@ export default {
 .left,
 .right {
   width: 500px;
-  max-width: 40%;
+  max-width: 30%;
 }
 .left {
   margin-right: 20px;

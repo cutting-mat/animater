@@ -16,8 +16,8 @@
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --dest dist --name index ./src/animater.js"
+    "build-doc": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --dest dist --name index ./src/animater.js"
   },
   "dependencies": {
     "animate.css": "^4.1.1"

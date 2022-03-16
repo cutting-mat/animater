@@ -31,27 +31,20 @@
       </ul>
     </div>
 
-    <footer class="foot">
-      <p>
-        © 2022 - 3022 Author
-        <a href="https://refined-x.com/" target="_blank">雅X共赏</a>
-        Github
-        <a href="https://github.com/cutting-mat/animater" target="_blank"
-          >Animater</a
-        >
-      </p>
-    </footer>
+    <myFooter />
   </div>
 </template>
 
 <script>
 import logo from "./logo";
+import myFooter from "../components/footer";
 
 import routes from "../index";
 
 export default {
   components: {
     logo,
+    myFooter
   },
   data() {
     return {
@@ -107,21 +100,4 @@ export default {
   margin-bottom: 0.5em;
 }
 
-.foot {
-  /* position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%; */
-  background: #333;
-  padding: 24px;
-  overflow: hidden;
-  color: #999;
-  font-size: 14px;
-  text-align: center;
-  margin-top: 40px;
-}
-.foot a {
-  color: #fff;
-  margin: 0 0.5em;
-}
 </style>

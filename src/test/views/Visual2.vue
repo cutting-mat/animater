@@ -78,7 +78,7 @@ export default {
 .right {
   position: relative;
   width: 500px;
-  max-width: 40%;
+  max-width: 30%;
 }
 
 .left {
