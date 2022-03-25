@@ -1,5 +1,8 @@
+// 根据.browserslistrc 配置加载polyfill, 需同时替换babel.config.js中注释的presets配置
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import Vue from 'vue'
-Vue.config.productionTip = false
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -9,7 +12,7 @@ Vue.use(ElementUI);
 import '@/test/assets/global.css';
 
 // 安装 animater
-import animater from "./animater"
+import animater from "../lib/animater"
 Vue.use(animater)
 
 import router from './router';
