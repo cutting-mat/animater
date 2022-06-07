@@ -181,3 +181,16 @@ this.$AnimatedGroup.enter('group1')
 
 - AnimatedGroup 与 Animated 组合使用时，必须是直接上下级
 - 如果 AnimatedGroup 包含于单文件组件中，该组件必须同步加载
+
+
+## 退场动画
+
+`beforeRouteLeave钩子` 配合 `$AnimatedGroup.leave()` 实现页面退场动画
+
+``` js
+    beforeRouteLeave(to, from, next) {
+        this.$AnimatedGroup.leave().then(() => {
+        next();
+        })
+    },
+```
